@@ -1,9 +1,13 @@
 <script>
-    let foods = [];
+    $: foods = [];
 
     async function fetchFoods() {
-        const response = await fetch('http://localhost:8080/api/foods');
-        foods = await response.json();
+        const response = await fetch('http://localhost:8081/api/foods',{
+            mode: 'no-cors',
+            method: "get",
+        });
+        foods = await response
+        console.log(foods)
     }
 
     // 페이지가 로드될 때 음식 데이터를 가져옵니다.

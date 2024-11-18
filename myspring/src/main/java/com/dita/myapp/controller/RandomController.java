@@ -15,7 +15,7 @@ public class RandomController {
         int lucky=r.nextInt(45)+1;
         model.addAttribute("Lucky", lucky);
         return "random";
-        
+
     }
     
 }
