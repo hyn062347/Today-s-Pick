@@ -419,7 +419,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (18:8) {#each foods as food}
+    // (19:8) {#each foods as food}
     function create_each_block(ctx) {
     	let li;
     	let t0_value = /*food*/ ctx[2] + "";
@@ -443,11 +443,11 @@ var app = (function () {
     			t3 = text(" ...");
     			a1 = element("a");
     			t4 = text("식당 찾기");
-    			attr_dev(a0, "href", a0_href_value = "https://www.10000recipe.com/recipe/list.html?q=" + /*food*/ ctx[2]);
-    			add_location(a0, file, 18, 27, 430);
-    			attr_dev(a1, "href", a1_href_value = "https://map.naver.com/p/search/" + /*food*/ ctx[2]);
-    			add_location(a1, file, 18, 105, 508);
-    			add_location(li, file, 18, 12, 415);
+    			attr_dev(a0, "href", a0_href_value = "" + (link1 + /*food*/ ctx[2]));
+    			add_location(a0, file, 19, 27, 546);
+    			attr_dev(a1, "href", a1_href_value = "" + (link2 + /*food*/ ctx[2]));
+    			add_location(a1, file, 19, 65, 584);
+    			add_location(li, file, 19, 12, 531);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -462,11 +462,11 @@ var app = (function () {
     		p: function update(ctx, dirty) {
     			if (dirty & /*foods*/ 1 && t0_value !== (t0_value = /*food*/ ctx[2] + "")) set_data_dev(t0, t0_value);
 
-    			if (dirty & /*foods*/ 1 && a0_href_value !== (a0_href_value = "https://www.10000recipe.com/recipe/list.html?q=" + /*food*/ ctx[2])) {
+    			if (dirty & /*foods*/ 1 && a0_href_value !== (a0_href_value = "" + (link1 + /*food*/ ctx[2]))) {
     				attr_dev(a0, "href", a0_href_value);
     			}
 
-    			if (dirty & /*foods*/ 1 && a1_href_value !== (a1_href_value = "https://map.naver.com/p/search/" + /*food*/ ctx[2])) {
+    			if (dirty & /*foods*/ 1 && a1_href_value !== (a1_href_value = "" + (link2 + /*food*/ ctx[2]))) {
     				attr_dev(a1, "href", a1_href_value);
     			}
     		},
@@ -479,7 +479,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(18:8) {#each foods as food}",
+    		source: "(19:8) {#each foods as food}",
     		ctx
     	});
 
@@ -493,6 +493,8 @@ var app = (function () {
     	let button;
     	let t3;
     	let ul;
+    	let t4;
+    	let p;
     	let mounted;
     	let dispose;
     	let each_value = /*foods*/ ctx[0];
@@ -518,12 +520,16 @@ var app = (function () {
     				each_blocks[i].c();
     			}
 
+    			t4 = space();
+    			p = element("p");
+    			p.textContent = "기능이 쏙쏙 들어가있잖아 컴슝좍아";
     			attr_dev(h1, "class", "svelte-1ylxl6w");
-    			add_location(h1, file, 14, 4, 283);
+    			add_location(h1, file, 15, 4, 399);
     			attr_dev(button, "class", "svelte-1ylxl6w");
-    			add_location(button, file, 15, 4, 310);
-    			add_location(ul, file, 16, 4, 366);
-    			add_location(main, file, 13, 0, 271);
+    			add_location(button, file, 16, 4, 426);
+    			add_location(ul, file, 17, 4, 482);
+    			add_location(p, file, 22, 4, 656);
+    			add_location(main, file, 14, 0, 387);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -542,13 +548,16 @@ var app = (function () {
     				}
     			}
 
+    			append_dev(main, t4);
+    			append_dev(main, p);
+
     			if (!mounted) {
     				dispose = listen_dev(button, "click", /*fetchFoods*/ ctx[1], false, false, false, false);
     				mounted = true;
     			}
     		},
     		p: function update(ctx, [dirty]) {
-    			if (dirty & /*foods*/ 1) {
+    			if (dirty & /*link2, foods, link1*/ 1) {
     				each_value = /*foods*/ ctx[0];
     				validate_each_argument(each_value);
     				let i;
@@ -593,6 +602,9 @@ var app = (function () {
     	return block;
     }
 
+    const link1 = "https://www.10000recipe.com/recipe/list.html?q=";
+    const link2 = "https://map.naver.com/p/search/";
+
     function instance($$self, $$props, $$invalidate) {
     	let foods;
     	let { $$slots: slots = {}, $$scope } = $$props;
@@ -610,7 +622,7 @@ var app = (function () {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1.warn(`<App> was created with unknown prop '${key}'`);
     	});
 
-    	$$self.$capture_state = () => ({ fetchFoods, foods });
+    	$$self.$capture_state = () => ({ link1, link2, fetchFoods, foods });
 
     	$$self.$inject_state = $$props => {
     		if ('foods' in $$props) $$invalidate(0, foods = $$props.foods);

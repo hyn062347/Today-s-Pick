@@ -1,6 +1,7 @@
 <script>
     $: foods = [];
-
+    const link1="https://www.10000recipe.com/recipe/list.html?q="
+    const link2="https://map.naver.com/p/search/"
     async function fetchFoods() {
         const response = await fetch('http://localhost:8081/api/foods',{
             method: "get",
@@ -16,9 +17,10 @@
     <button on:click={fetchFoods}>음식 리스트 가져오기</button>
     <ul>
         {#each foods as food}
-            <li>{food}  ...<a href="https://www.10000recipe.com/recipe/list.html?q={food}">레시피 보기</a> ...<a href="https://map.naver.com/p/search/{food}">식당 찾기</a></li>
+            <li>{food}  ...<a href="{link1}{food}">레시피 보기</a> ...<a href="{link2}{food}">식당 찾기</a></li>
         {/each}
     </ul>
+    <p>기능이 쏙쏙 들어가있잖아 컴슝좍아</p>
 </main>
 
 <style>
