@@ -3,10 +3,9 @@
 
     async function fetchFoods() {
         const response = await fetch('http://localhost:8081/api/foods',{
-            mode: 'no-cors',
             method: "get",
         });
-        foods = await response
+        foods = await response.json()
         console.log(foods)
     }
 
