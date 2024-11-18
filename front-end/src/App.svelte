@@ -9,8 +9,6 @@
         console.log(foods)
     }
 
-    // 페이지가 로드될 때 음식 데이터를 가져옵니다.
-    fetchFoods();
 </script>
 
 <main>
@@ -18,7 +16,7 @@
     <button on:click={fetchFoods}>음식 리스트 가져오기</button>
     <ul>
         {#each foods as food}
-            <li>{food}</li>
+            <li>{food}  ...<a href="https://www.10000recipe.com/recipe/list.html?q={food}">레시피 보기</a> ...<a href="https://map.naver.com/p/search/{food}">식당 찾기</a></li>
         {/each}
     </ul>
 </main>
