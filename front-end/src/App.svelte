@@ -4,6 +4,7 @@
     import Home from "./pages/Home.svelte";
     import About from "./pages/About.svelte";
     import Carana from "./pages/Carana.svelte";
+    import Header from "./components/Header.svelte";
     // const link1="https://www.10000recipe.com/recipe/list.html?q="
     // const link2="https://map.naver.com/p/search/"
     // async function fetchFoods() {
@@ -25,13 +26,16 @@
         {/each}
     </ul>
     <p>기능이 쏙쏙 들어가있잖아aaas</p> -->
+
     <a href="/about">about</a>
     <a href="/carana">Canara</a>
+    
     <!-- <nav>
         <Link to ="/">Home</Link>
         <Link to ="/about">About</Link>
         <Link to ="/carana">Carana</Link>
     </nav> -->
+    <Header/>
     <Router>
         <Route path="/" component = {Home} />
         <Route path="/about" component = {About} />
@@ -41,9 +45,12 @@
 
 <style>
     h1 {
-        color: #333;
+        color: #d70000;
     }
     button {
         margin: 10px 0;
+    }
+    body {
+        background-color: #333;
     }
 </style>
