@@ -5,6 +5,7 @@
     import About from "./pages/About.svelte";
     import Carana from "./pages/Carana.svelte";
     import Header from "./components/Header.svelte";
+    import Slider from "./components/Slider.svelte";
     // const link1="https://www.10000recipe.com/recipe/list.html?q="
     // const link2="https://map.naver.com/p/search/"
     // async function fetchFoods() {
@@ -36,6 +37,7 @@
         <Link to ="/carana">Carana</Link>
     </nav> -->
     <Header/>
+    <Slider/>
     <Router>
         <Route path="/" component = {Home} />
         <Route path="/about" component = {About} />
