@@ -1,5 +1,8 @@
 <script>
     $: foods = [];
+    import { Router, Route, Link } from "svelte-routing";
+    import Home from "./pages/Home.svelte";
+    import About from "./pages/About.svelte";
     const link1="https://www.10000recipe.com/recipe/list.html?q="
     const link2="https://map.naver.com/p/search/"
     async function fetchFoods() {
@@ -20,7 +23,16 @@
             <li>{food}  ...<a href="{link1}{food}">레시피 보기</a> ...<a href="{link2}{food}">식당 찾기</a></li>
         {/each}
     </ul>
-    <p>기능이 쏙쏙 들어가있잖아 컴슝좍아</p>
+    <p>기능이 쏙쏙 들어가있잖아aaas</p>
+    <a href="/about">aaaaas</a>
+    <nav>
+        <!-- <Link to ="/">Home</Link>
+        <Link to ="/about">About</Link> -->
+    </nav>
+    <Router>
+        <Route path="/" component={Home} />
+        <Route path="/about" component={About} />
+    </Router>
 </main>
 
 <style>
