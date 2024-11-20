@@ -7,6 +7,7 @@
     import Header from "./components/Header.svelte";
     import SignUp from "./pages/SignUp.svelte";
     import SignIn from "./pages/SignIn.svelte";
+    import Gacha from "./pages/Gacha.svelte";
     import { comment } from "svelte/internal";
     // const link1="https://www.10000recipe.com/recipe/list.html?q="
     // const link2="https://map.naver.com/p/search/"
@@ -45,6 +46,7 @@
         <Route path="/carana" component = {Carana}/>
         <Route path="/signup" component = {SignUp}/>
         <Route path="/signin" component = {SignIn}/>
+        <Route path="/gacha" component = {Gacha}/>
     </Router>
 </main>
 

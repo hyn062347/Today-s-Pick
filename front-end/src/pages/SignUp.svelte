@@ -16,7 +16,7 @@
             <button>Sign up</button>
         </form>
         <div class="form-section">
-            <p>Have an account? <a href="">Log in</a></p>
+            <p>Have an account? <a href="/signin">Log in</a></p>
         </div>
     </div>
 </main>
