@@ -8,6 +8,7 @@
     import SignUp from "./pages/SignUp.svelte";
     import SignIn from "./pages/SignIn.svelte";
     import { comment } from "svelte/internal";
+    import SelectPage from "./pages/SelectPage.svelte";
     // const link1="https://www.10000recipe.com/recipe/list.html?q="
     // const link2="https://map.naver.com/p/search/"
     // async function fetchFoods() {
@@ -45,6 +46,7 @@
         <Route path="/carana" component = {Carana}/>
         <Route path="/signup" component = {SignUp}/>
         <Route path="/signin" component = {SignIn}/>
+        <Route path="/selectpage" component = {SelectPage}/>
     </Router>
 </main>
 

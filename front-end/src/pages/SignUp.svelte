@@ -1,4 +1,31 @@
 <script>
+    let formData = {
+        name:'',
+        password:'',
+        email:'',
+        //선호 음식 따로 추가해야됨.
+    }
+
+    async function sendData(){
+        try{
+            const response = await fetch('http://localhost/api/signup',{
+                method: 'POST',
+                headers:{
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+
+            if(!response.ok){
+                throw new Error(`서버오류: ${response.status}`);
+            }
+
+            const result = await response.json();
+            console.log('서버 응답', result);
+        }catch (error){
+            console.error(`데이터 전송 오류`, error);
+        }
+    }
 </script>
 
 <main class="setCenter">
