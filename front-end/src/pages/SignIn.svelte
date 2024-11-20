@@ -6,9 +6,12 @@
         <form class="form">
             <span class="title">Sign up</span>
             <div class="form-container">
-                <input type="text" class="input" placeholder="Full Name" />
-                <input type="email" class="input" placeholder="Email" />
+                <input type="ID" class="input" placeholder="ID" />
                 <input type="password" class="input" placeholder="Password" />
+                <input type="password-confirm" class="input" placeholder="Password Confirm" />
+                <input type="email" class="input" placeholder="Email" />
+                <input type="text" class="input" placeholder="선호 음식 종류" />
+                <input type="text" class="input" placeholder="선호 음식 세부 분류" />
             </div>
             <button>Sign up</button>
         </form>
@@ -99,7 +102,7 @@
         background-color: #0066ff;
         color: #fff;
         border: 0;
-        border-radius: 24px;
+        border-radius: 15px;
         padding: 10px 16px;
         font-size: 1rem;
         font-weight: 600;
