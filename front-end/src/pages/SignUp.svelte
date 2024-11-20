@@ -1,9 +1,10 @@
 <script>
     let formData = {
+        uid:'',
         name:'',
         password:'',
         email:'',
-        //선호 음식 따로 추가해야됨.
+        category:'',
     }
 
     async function sendData(){
@@ -30,17 +31,18 @@
 
 <main class="setCenter">
     <div class="form-box">
-        <form class="form">
+        <form class="form" on:submit|preventDefault={sendData}>
             <span class="title">Sign up</span>
             <div class="form-container">
-                <input type="ID" class="input" placeholder="ID" />
-                <input type="password" class="input" placeholder="Password" />
+                <input type="ID" class="input" placeholder="ID" bind:value={formData.id}/>
+                <input type="text" class="input" placeholder="Name" bind:value={formData.name}/>
+                <input type="password" class="input" placeholder="Password" bind:value={formData.password}/>
                 <input type="password-confirm" class="input" placeholder="Password Confirm" />
-                <input type="email" class="input" placeholder="Email" />
-                <input type="text" class="input" placeholder="선호 음식 종류" />
+                <input type="email" class="input" placeholder="Email" bind:value={formData.email}/>
+                <input type="text" class="input" placeholder="선호 음식 종류" bind:value={formData.category}/>
                 <input type="text" class="input" placeholder="선호 음식 세부 분류" />
             </div>
-            <button>Sign up</button>
+            <button type="submit">Sign up</button>
         </form>
         <div class="form-section">
             <p>Have an account? <a href="/signin">Log in</a></p>
