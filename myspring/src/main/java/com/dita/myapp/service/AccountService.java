@@ -50,7 +50,7 @@ public class AccountService{
     private final AccountRepository accountRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public Account createAccount(Long uid, String uname, String password, String email){
+    public Account createAccount(String uid, String uname, String password, String email){
         Account account = new Account();
         account.setUid(uid);
         account.setName(uname);
@@ -61,7 +61,7 @@ public class AccountService{
         return account;
     }
 
-    public Account signIn(Long uid, String password){
+    public Account signIn(String uid, String password){
         Account account = accountRepository.findById(uid).orElseThrow(()-> new IllegalArgumentException("Invalid UID or password"));
 
         if (!passwordEncoder.matches(password, account.getPassword())) {

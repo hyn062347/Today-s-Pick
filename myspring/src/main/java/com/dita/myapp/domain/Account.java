@@ -18,7 +18,7 @@ public class Account{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long uid;
+    private String uid;
     private String password;
     private String name;
     private String email;
