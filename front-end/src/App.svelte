@@ -37,7 +37,6 @@
         <Link to ="/carana">Carana</Link>
     </nav> -->
     <Header/>
-    <Slider/>
     <Router>
         <Route path="/" component = {Home} />
         <Route path="/about" component = {About} />

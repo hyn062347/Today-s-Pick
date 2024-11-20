@@ -1,11 +1,14 @@
 <script>
+    import Slider from "../components/Slider.svelte";
+
     export let name = "홈페이지";
 </script>
 
 <main>
+    <Slider/>
     <div class="ButtonSection">
-        <button >Button1</button>
-        <button>Button2</button>
+        <button class="TodaysPick">Button1</button>
+        <button class="Favorite">즐겨찾기</button>
     </div>
 </main>
 
@@ -24,11 +27,22 @@
     }
 
     button{
-        border-radius: 15px;
+        border-radius: 20px;
         border: none;
         color: white;
-        height: 30%;
-        width: 30%;
+        padding-left: 10%;
+        padding-right: 10%;
+        padding-top: 6%;
+        padding-bottom: 6%;
         font-size: xx-large;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .Favorite{
+        background-color: rgb(0, 145, 255);
+    }
+
+    .TodaysPick{
+        background-color: blueviolet;
     }
 </style>
