@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.dita.myapp.domain.Account;
 import com.dita.myapp.dto.AccountDto;
+import com.dita.myapp.dto.SignInDto;
 import com.dita.myapp.service.AccountService;
 
 import lombok.RequiredArgsConstructor;
@@ -31,6 +32,16 @@ public class AccountController {
             );
 
         return ResponseEntity.ok(account);
+    }
+    
+    @PostMapping("/signin")
+    public ResponseEntity signIn(@RequestBody SignInDto signInDto) {
+        try {
+            Account account = accountService.signIn(signInDto.getUid(), signInDto.getPassword());
+            return ResponseEntity.ok("Welcome " + account.getName());
+        } catch (Exception e) {
+            return ResponseEntity.status(401).body("Invalid UID or password");
+        }
     }
     
 
