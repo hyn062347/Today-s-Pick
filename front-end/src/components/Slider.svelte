@@ -46,7 +46,7 @@
         {#each slides as slide}
             <div class="slide">
                 <img src={slide.image} alt="슬라이드 이미지" />
-                <div class="slide-text">{slide.text}</div>
+                <!-- <div class="slide-text">{slide.text}</div> -->
             </div>
         {/each}
     </div>
