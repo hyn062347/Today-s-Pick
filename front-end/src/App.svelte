@@ -28,8 +28,8 @@
     </ul>
     <p>기능이 쏙쏙 들어가있잖아aaas</p> -->
 
-    <a href="/about">about</a>
-    <a href="/carana">Canara</a>
+    <!-- <a href="/about">about</a> -->
+    <!-- <a href="/carana">Canara</a> -->
     
     <!-- <nav>
         <Link to ="/">Home</Link>
