@@ -35,7 +35,7 @@ public class AccountController {
     }
     
     @PostMapping("/signin")
-    public ResponseEntity signIn(@RequestBody SignInDto signInDto) {
+    public ResponseEntity<String> signIn(@RequestBody SignInDto signInDto) {
         try {
             Account account = accountService.signIn(signInDto.getUid(), signInDto.getPassword());
             return ResponseEntity.ok("Welcome " + account.getName());
