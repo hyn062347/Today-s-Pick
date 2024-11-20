@@ -11,15 +11,30 @@
     let currentIndex = 0; // 현재 슬라이드 인덱스
     let transitioning = false; // 슬라이드 전환 중인지 확인
 
+    // 첫 번째 슬라이드를 복사해서 마지막에 추가
+    let clonedSlides = [...slides, slides[0]];
+
     // 다음 슬라이드로 이동
     function nextSlide() {
         if (transitioning) return;
         transitioning = true;
 
-        currentIndex = (currentIndex + 1) % slides.length;
+        currentIndex++;
+        const slidesElement = document.querySelector(".slides");
+        slidesElement.style.transition = "transform 0.5s ease-in-out";
+        slidesElement.style.transform = `translateX(-${currentIndex * 100}%)`;
 
-        // 500ms 후 전환 가능 (애니메이션과 동일 시간)
-        setTimeout(() => (transitioning = false), 500);
+        // 마지막 슬라이드에서 첫 번째 슬라이드로 돌아가기
+        if (currentIndex === slides.length) {
+            setTimeout(() => {
+                slidesElement.style.transition = "none"; // 트랜지션 제거
+                slidesElement.style.transform = "translateX(0)"; // 첫 번째 슬라이드로 리셋
+                currentIndex = 0;
+                transitioning = false;
+            }, 500); // 트랜지션 시간과 동일
+        } else {
+            setTimeout(() => (transitioning = false), 500); // 트랜지션 시간과 동일
+        }
     }
 
     // 이전 슬라이드로 이동
@@ -27,10 +42,21 @@
         if (transitioning) return;
         transitioning = true;
 
-        currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+        const slidesElement = document.querySelector(".slides");
 
-        // 500ms 후 전환 가능 (애니메이션과 동일 시간)
-        setTimeout(() => (transitioning = false), 500);
+        if (currentIndex === 0) {
+            // 첫 번째 슬라이드에서 뒤로 이동하면 마지막으로 순간 이동
+            currentIndex = slides.length - 1;
+            slidesElement.style.transition = "none"; // 트랜지션 제거
+            slidesElement.style.transform = `translateX(-${currentIndex * 100}%)`;
+        }
+
+        setTimeout(() => {
+            currentIndex--;
+            slidesElement.style.transition = "transform 0.5s ease-in-out";
+            slidesElement.style.transform = `translateX(-${currentIndex * 100}%)`;
+            setTimeout(() => (transitioning = false), 500); // 트랜지션 시간과 동일
+        }, 0);
     }
 
     // 슬라이드 자동 전환
@@ -42,11 +68,10 @@
 
 <div class="slider">
     <!-- 슬라이드 컨테이너 -->
-    <div class="slides" style="transform: translateX(-{currentIndex * 100}%);">
-        {#each slides as slide}
+    <div class="slides" style="width: calc(100% * {clonedSlides.length});">
+        {#each clonedSlides as slide}
             <div class="slide">
                 <img src={slide.image} alt="슬라이드 이미지" />
-                <!-- <div class="slide-text">{slide.text}</div> -->
             </div>
         {/each}
     </div>
@@ -70,11 +95,8 @@
 
     /* 슬라이드 전체를 감싸는 컨테이너 */
     .slides {
-        position: absolute;
         display: flex;
         transition: transform 0.5s ease-in-out; /* 부드러운 이동 애니메이션 */
-        width: 100%;
-        height: 100%;
     }
 
     /* 개별 슬라이드 스타일 */
@@ -83,7 +105,6 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        flex-direction: column;
     }
 
     /* 슬라이드 이미지 */
@@ -91,16 +112,6 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
-    }
-
-    /* 슬라이드 텍스트 */
-    .slide-text {
-        position: absolute;
-        bottom: 20px;
-        background: rgba(0, 0, 0, 0.5);
-        color: white;
-        padding: 10px 20px;
-        border-radius: 10px;
     }
 
     /* 좌우 버튼 스타일 */
