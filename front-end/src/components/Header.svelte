@@ -1,22 +1,35 @@
 <script>
     let currentPage = 0;
     import { Router, Route, Link } from "svelte-routing";
+    import { goto } from '$app/navigation';
+
+    function navigateToSignUp() {
+        window.location.href = '/signup';
+    }
+
 </script>
 
 <header class="HeaderForm">
     <div>
-        logo
+        <a href="/" class="Logo">Logo</a>
     </div>
     <label class="Title">오늘 뭐먹지?</label>
     <div class="ButtonSection">
         <button class="LoginButton">Login</button>
-        <button class="RegisterButton">Register</button>
+        <button class="RegisterButton" on:click={navigateToSignUp}>Sign Up</button>
     </div>
 </header>
 
 <main></main>
 
 <style>
+    .Logo{
+        color: white;
+        font-weight: bolder;
+        font-size: large;
+        margin-left: 10px;
+        user-select: none;
+    }
 
     .HeaderForm {
         background-color: rgb(0, 123, 255);
