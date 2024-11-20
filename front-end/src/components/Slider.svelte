@@ -96,6 +96,7 @@
     /* 슬라이드 전체를 감싸는 컨테이너 */
     .slides {
         display: flex;
+        height: 100%;
         transition: transform 0.5s ease-in-out; /* 부드러운 이동 애니메이션 */
     }
 
