@@ -1,38 +1,37 @@
 package com.dita.myapp.controller;
 
-import com.dita.myapp.dto.LoginRequest;
-import com.dita.myapp.dto.LoginResponse;
-import com.dita.myapp.dto.SignupRequest;
-import com.dita.myapp.service.AccountService;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+import com.dita.myapp.domain.Account;
+import com.dita.myapp.dto.AccountDto;
+import com.dita.myapp.service.AccountService;
+
+import lombok.RequiredArgsConstructor;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/accounts")
 public class AccountController {
 
     private final AccountService accountService;
 
-    public AccountController(AccountService accountService) {
-        this.accountService = accountService;
-    }
-
-    // 회원가입 API
     @PostMapping("/signup")
-    public ResponseEntity<String> signup(@RequestBody SignupRequest request) {
-        accountService.signup(request);
-        return ResponseEntity.ok("회원가입 성공");
-    }
+    public ResponseEntity<Account> createAccount(@RequestBody AccountDto accountDto) {
+        Account account = accountService.createAccount(
+            accountDto.getUid(),
+            accountDto.getUname(),
+            accountDto.getPassword(),
+            accountDto.getEmail()
+            );
 
-    // 로그인 API
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequest request) {
-        return accountService.login(request)
-                .map(account -> ResponseEntity.ok(new LoginResponse(
-                        account.getUid(),
-                        account.getUname(),
-                        "fake-jwt-token" // JWT 토큰 구현 시 수정 필요
-                )))
-                .orElse(ResponseEntity.status(401).body("로그인 실패"));
+        return ResponseEntity.ok(account);
     }
+    
+
 }
