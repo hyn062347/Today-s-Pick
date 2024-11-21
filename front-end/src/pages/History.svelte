@@ -4,6 +4,9 @@
     function deleteData() {
         console.log("Delete");
     }
+    function directGacha() {
+        window.location.href = '/gacha';
+    }
 </script>
 
 <main class="main">
@@ -34,7 +37,8 @@
             </div>
         </div>
         <div class="contentBox">
-            <span class="delete" on:click={deleteData}>삭제하기</span>
+            <span class="direct" on:click={directGacha}>바로가기</span>
+            <span class="delete" on:click={() => deleteData()}>Delete</span>
         </div>
     </div>
     <!-- --------------테스트용--------------- -->
@@ -65,6 +69,11 @@
         height: 100px;
         width: 100px;
         margin: 15px;
+    }
+
+    .element .direct {
+        font-size:  20px;
+        color: #333;
     }
 
     .element .delete {
