@@ -1,15 +1,40 @@
 <script>
+    let formData = {
+        uid:'',
+        password:'',
+    }
+
+    async function sendData(){
+        try{
+            const response = await fetch('http://localhost/api/account/signin',{
+                method: 'POST',
+                headers:{
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+
+            if(!response.ok){
+                throw new Error(`서버오류: ${response.status}`);
+            }
+
+            const result = await response.json();
+            console.log('서버 응답', result);
+        }catch (error){
+            console.error(`데이터 전송 오류`, error);
+        }
+    }
 </script>
 
 <main class="setCenter">
     <div class="form-box">
-        <form class="form">
+        <form class="form" on:submit|preventDefault={sendData()}>
             <span class="title">Sign In</span>
             <div class="form-container">
                 <input type="ID" class="input" placeholder="ID" />
                 <input type="password" class="input" placeholder="Password" />
             </div>
-            <button>Sign In</button>
+            <button type="submit">Sign In</button>
         </form>
         <div class="form-section">
             <p>Don't an account? <a href="/signup">Sign Up</a></p>

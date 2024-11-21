@@ -1,5 +1,8 @@
 <script>
     let image = "/img/SequoiaLight.png";
+    function editData() {
+        console.log("Edit");
+    }
     function deleteData() {
         console.log("Delete");
     }
@@ -13,6 +16,7 @@
             <span class="subtitle">Subtitle</span>
         </div>
         <div class="contentBox">
+            <span class="Edit" on:click={() => editData()}>Edit</span>
             <span class="delete" on:click={() => deleteData()}>Delete</span>
         </div>
     </div>
@@ -26,6 +30,7 @@
             <span class="subtitle">Subtitle</span>
         </div>
         <div class="contentBox">
+            <span class="Edit" on:click={() => editData()}>Edit</span>
             <span class="delete" on:click={() => deleteData()}>Delete</span>
         </div>
     </div>

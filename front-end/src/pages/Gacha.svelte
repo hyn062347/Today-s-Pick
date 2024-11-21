@@ -57,7 +57,7 @@
                     <span class:active={cuisine === "중식"} on:click={() => (cuisine = "중식")}>중식</span>
                     <span class:active={cuisine === "일식"} on:click={() => (cuisine = "일식")}>일식</span>
                 </div>
-                <div class="option">
+                <div class="option last">
                     <span class:active={category === "전체"} on:click={() => (category = "전체")}>전체</span>
                     <span class:active={category === "밥류"} on:click={() => (category = "밥류")}>밥류</span>
                     <span class:active={category === "면류"} on:click={() => (category = "면류")}>면류</span>
@@ -115,24 +115,28 @@
     .options {
         display: flex;
         flex-direction: column;
-        gap: 10px;
         margin-bottom: 20px;
         align-items: flex-start;
     }
 
     .option {
         display: flex;
-        justify-content: center;
-        gap: 20px;
+        justify-content: flex-start;
         font-size: 16px;
         cursor: pointer;
+        border-top: 2px solid;
+        width: 100%;
+    }
+
+    .last{
+        border-bottom: 2px solid;
     }
 
     .option span {
-        padding: 5px 10px;
-        border: none;
-        border-radius: 5px;
+        padding: 15px 20px;
         transition: all 0.2s ease;
+        cursor: pointer;
+        text-align: center;
     }
 
     .option span.active {
