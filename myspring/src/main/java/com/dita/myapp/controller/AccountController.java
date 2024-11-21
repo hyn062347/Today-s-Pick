@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/accounts")
+@RequestMapping("/api/account")
 @Log
 public class AccountController {
 
@@ -38,11 +38,10 @@ public class AccountController {
     }
     
     @PostMapping("/signin")
-    public ResponseEntity<String> signIn(@RequestBody SignInDto signInDto) {
-        log.info(signInDto.getUid()+"  "+signInDto.getPassword());
+    public ResponseEntity<?> signIn(@RequestBody SignInDto signInDto) {
         try {
             Account account = accountService.signIn(signInDto.getUid(), signInDto.getPassword());
-            return ResponseEntity.ok(account.getUid());
+            return ResponseEntity.ok().body(account);
         } catch (Exception e) {
             return ResponseEntity.status(401).body(e.toString());
         }

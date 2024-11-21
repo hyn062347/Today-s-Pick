@@ -6,7 +6,7 @@
 
     async function sendData(){
         try{
-            const response = await fetch('http://localhost/api/account/signin',{
+            const response = await fetch('http://localhost:8080/api/account/signin',{
                 method: 'POST',
                 headers:{
                     'Content-Type': 'application/json'
@@ -14,9 +14,9 @@
                 body: JSON.stringify(formData)
             });
 
-            if(!response.ok){
-                throw new Error(`서버오류: ${response.status}`);
-            }
+            // if(!response.ok){
+            //     throw new Error(`서버오류: ${response.status}`);
+            // }
 
             const result = await response.json();
             console.log('서버 응답', result);

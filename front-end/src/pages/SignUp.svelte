@@ -9,7 +9,7 @@
 
     async function sendData(){
         try{
-            const response = await fetch('http://localhost/api/account/signup',{
+            const response = await fetch('http://localhost:8080/api/account/signup',{
                 method: 'POST',
                 headers:{
                     'Content-Type': 'application/json'
@@ -34,7 +34,7 @@
         <form class="form" on:submit|preventDefault={sendData}>
             <span class="title">Sign up</span>
             <div class="form-container">
-                <input type="ID" class="input" placeholder="ID" bind:value={formData.id}/>
+                <input type="ID" class="input" placeholder="ID" bind:value={formData.uid}/>
                 <input type="text" class="input" placeholder="Name" bind:value={formData.name}/>
                 <input type="password" class="input" placeholder="Password" bind:value={formData.password}/>
                 <input type="password-confirm" class="input" placeholder="Password Confirm" />
