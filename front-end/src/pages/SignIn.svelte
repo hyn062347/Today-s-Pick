@@ -28,11 +28,11 @@
 
 <main class="setCenter">
     <div class="form-box">
-        <form class="form" on:submit|preventDefault={sendData()}>
+        <form class="form" on:submit|preventDefault={sendData}>
             <span class="title">Sign In</span>
             <div class="form-container">
-                <input type="ID" class="input" placeholder="ID" />
-                <input type="password" class="input" placeholder="Password" />
+                <input type="ID" class="input" placeholder="ID" bind:value={formData.uid}/>
+                <input type="password" class="input" placeholder="Password" bind:value={formData.password}/>
             </div>
             <button type="submit">Sign In</button>
         </form>
