@@ -8,7 +8,9 @@ import com.dita.myapp.dto.AccountDto;
 import com.dita.myapp.dto.SignInDto;
 import com.dita.myapp.service.AccountService;
 
+
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/accounts")
+@Log
 public class AccountController {
 
     private final AccountService accountService;
@@ -36,11 +39,12 @@ public class AccountController {
     
     @PostMapping("/signin")
     public ResponseEntity<String> signIn(@RequestBody SignInDto signInDto) {
+        log.info(signInDto.getUid()+"  "+signInDto.getPassword());
         try {
             Account account = accountService.signIn(signInDto.getUid(), signInDto.getPassword());
-            return ResponseEntity.ok("Welcome " + account.getName());
+            return ResponseEntity.ok(account.getUid());
         } catch (Exception e) {
-            return ResponseEntity.status(401).body("Invalid UID or password");
+            return ResponseEntity.status(401).body(e.toString());
         }
     }
     
