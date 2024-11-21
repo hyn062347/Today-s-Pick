@@ -26,14 +26,6 @@
             alert("조건에 맞는 메뉴가 없습니다. 다시 선택해주세요.");
         }
     }
-
-    // 선택 초기화
-    function resetSelection() {
-        mealTime = "전체";
-        cuisine = "전체";
-        category = "전체";
-        selectedMenu = null;
-    }
 </script>
 
 <main>
@@ -72,11 +64,33 @@
                 <!-- 가챠 후: 메뉴 이미지 표시 -->
                 <img src={selectedMenu.image} alt={selectedMenu.name} class="menu-image" />
             </div>
+            <div class="options">
+                <div class="option">
+                    <span class:active={mealTime === "전체"} on:click={() => (mealTime = "전체")}>전체</span>
+                    <span class:active={mealTime === "아침"} on:click={() => (mealTime = "아침")}>아침</span>
+                    <span class:active={mealTime === "점심"} on:click={() => (mealTime = "점심")}>점심</span>
+                    <span class:active={mealTime === "저녁"} on:click={() => (mealTime = "저녁")}>저녁</span>
+                </div>
+                <div class="option">
+                    <span class:active={cuisine === "전체"} on:click={() => (cuisine = "전체")}>전체</span>
+                    <span class:active={cuisine === "한식"} on:click={() => (cuisine = "한식")}>한식</span>
+                    <span class:active={cuisine === "양식"} on:click={() => (cuisine = "양식")}>양식</span>
+                    <span class:active={cuisine === "중식"} on:click={() => (cuisine = "중식")}>중식</span>
+                    <span class:active={cuisine === "일식"} on:click={() => (cuisine = "일식")}>일식</span>
+                </div>
+                <div class="option last">
+                    <span class:active={category === "전체"} on:click={() => (category = "전체")}>전체</span>
+                    <span class:active={category === "밥류"} on:click={() => (category = "밥류")}>밥류</span>
+                    <span class:active={category === "면류"} on:click={() => (category = "면류")}>면류</span>
+                    <span class:active={category === "육류"} on:click={() => (category = "육류")}>육류</span>
+                    <span class:active={category === "튀김류"} on:click={() => (category = "튀김류")}>튀김류</span>
+                </div>
+            </div>
             <div class="result">
                 <h2>{selectedMenu.name}</h2>
                 <div>
-                    <button class="action-button" on:click={resetSelection}>다시 뽑기</button>
-                    <button class="action-button yellow">식당 찾기</button>
+                    <button class="action-button" on:click={pickRandomMenu}>다시 뽑기</button>
+                    <button class="action-button yellow" >식당 찾기</button>
                     <button class="action-button orange">레시피 찾기</button>
                 </div>
             </div>
@@ -148,13 +162,15 @@
     }
 
     .action-button {
+        margin-left: 10px;
+        margin-right: 10px;
         margin-top: 20px;
         padding: 10px 20px;
         font-size: 16px;
         background-color: #007bff;
         color: white;
         border: none;
-        border-radius: 5px;
+        border-radius: 10px;
         cursor: pointer;
     }
 
@@ -182,6 +198,6 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 20px;
+        gap: 0px;
     }
 </style>
