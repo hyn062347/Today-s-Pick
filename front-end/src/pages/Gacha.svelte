@@ -90,6 +90,7 @@
         flex-direction: column;
         align-items: center;
         padding: 20px;
+        user-select: none;
     }
 
     .img-container {
@@ -120,7 +121,8 @@
     }
 
     .option {
-        display: flex;
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
         justify-content: flex-start;
         font-size: 16px;
         cursor: pointer;
