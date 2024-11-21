@@ -8,8 +8,8 @@
     import SignUp from "./pages/SignUp.svelte";
     import SignIn from "./pages/SignIn.svelte";
     import Gacha from "./pages/Gacha.svelte";
-    import { comment } from "svelte/internal";
-    import SelectPage from "./pages/SelectPage.svelte";
+    import Favorite from "./pages/Favorite.svelte";
+    import MyPage from "./pages/MyPage.svelte";
     // const link1="https://www.10000recipe.com/recipe/list.html?q="
     // const link2="https://map.naver.com/p/search/"
     // async function fetchFoods() {
@@ -48,6 +48,8 @@
         <Route path="/signup" component = {SignUp}/>
         <Route path="/signin" component = {SignIn}/>
         <Route path="/gacha" component = {Gacha}/>
+        <Route path="/favorite" component = {Favorite}/>
+        <Route path="/mypage" component = {MyPage}/>
     </Router>
 </main>
 

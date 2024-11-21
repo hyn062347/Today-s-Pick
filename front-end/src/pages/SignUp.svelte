@@ -9,7 +9,7 @@
 
     async function sendData(){
         try{
-            const response = await fetch('http://localhost/api/signup',{
+            const response = await fetch('http://localhost/api/account/signup',{
                 method: 'POST',
                 headers:{
                     'Content-Type': 'application/json'

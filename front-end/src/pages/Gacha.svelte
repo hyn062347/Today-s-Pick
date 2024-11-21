@@ -117,6 +117,7 @@
         flex-direction: column;
         gap: 10px;
         margin-bottom: 20px;
+        align-items: flex-start;
     }
 
     .option {
@@ -129,7 +130,7 @@
 
     .option span {
         padding: 5px 10px;
-        border: 1px solid transparent;
+        border: none;
         border-radius: 5px;
         transition: all 0.2s ease;
     }

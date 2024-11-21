@@ -9,7 +9,7 @@
     <Slider/>
     <div class="ButtonSection">
         <button class="TodaysPick" on:click={() => navigate("/gacha")}>Button1</button>
-        <button class="Favorite">즐겨찾기</button>
+        <button class="Favorite" on:click={() => navigate("/favorite")}>즐겨찾기</button>
     </div>
 </main>
 

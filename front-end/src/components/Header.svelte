@@ -1,13 +1,11 @@
 <script>
     let currentPage = 0;
-    import { Router, Route, Link } from "svelte-routing";
-    import { goto } from '$app/navigation';
 
     function navigateToSignUp() {
         window.location.href = '/signup';
     }
     function navigateToSignIn(){
-        window.location.href = '/signin';
+        window.location.href = '/signin';4
     }
 
 </script>
