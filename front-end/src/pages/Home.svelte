@@ -1,13 +1,18 @@
 <script>
     import Slider from "../components/Slider.svelte";
     import { navigate } from "svelte-routing";
-
+    import { user } from './SignIn.svelte';
     export let name = "홈페이지";
 </script>
 
 <main>
     <Slider/>
     <div class="ButtonSection">
+        {#if $user}
+            <h1>Welcom, {$user.uid}</h1>
+        {:else}
+            <h1>Did not Log in</h1>
+        {/if}
         <button class="TodaysPick" on:click={() => navigate("/gacha")}>Button1</button>
         <button class="Favorite" on:click={() => navigate("/favorite")}>즐겨찾기</button>
     </div>

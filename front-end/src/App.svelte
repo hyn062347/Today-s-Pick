@@ -27,6 +27,7 @@
         }
     }
 
+    checkSession();
 </script>
 
 <main>
