@@ -23,11 +23,13 @@
 
             const result = await response.json();
             user.set(result);
-            console.log('서버 응답', result);
+            sessionStorage.setItem("idkey",result.uid);
+            console.log('서버 응답', user);
         }catch (error){
             console.error(`데이터 전송 오류`, error);
             user.set(null);
         }
+        window.location.href="/"
     }
 </script>
 
