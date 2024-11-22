@@ -9,7 +9,6 @@
     <Slider/>
     <div class="ButtonSection">
         {#if !sessionStorage.getItem("idkey")}
-            
             <h1>Did not Log in</h1>
         {:else}
         <h1>Welcom, {sessionStorage.getItem("idkey")}</h1>
