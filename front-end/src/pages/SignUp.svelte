@@ -1,7 +1,7 @@
 <script>
     let formData = {
         uid:'',
-        name:'',
+        uname:'',
         password:'',
         email:'',
         category:'',
@@ -35,7 +35,7 @@
             <span class="title">Sign up</span>
             <div class="form-container">
                 <input type="ID" class="input" placeholder="ID" bind:value={formData.uid}/>
-                <input type="text" class="input" placeholder="Name" bind:value={formData.name}/>
+                <input type="text" class="input" placeholder="Name" bind:value={formData.uname}/>
                 <input type="password" class="input" placeholder="Password" bind:value={formData.password}/>
                 <input type="password-confirm" class="input" placeholder="Password Confirm" />
                 <input type="email" class="input" placeholder="Email" bind:value={formData.email}/>

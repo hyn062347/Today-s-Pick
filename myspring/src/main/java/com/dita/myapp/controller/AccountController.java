@@ -27,12 +27,7 @@ public class AccountController {
 
     @PostMapping("/signup")
     public ResponseEntity<Account> createAccount(@RequestBody AccountDto accountDto) {
-        Account account = accountService.createAccount(
-            accountDto.getUid(),
-            accountDto.getUname(),
-            accountDto.getPassword(),
-            accountDto.getEmail()
-            );
+        Account account = accountService.createAccount(accountDto);
 
         return ResponseEntity.ok(account);
     }

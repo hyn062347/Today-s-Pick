@@ -5,6 +5,7 @@ package com.dita.myapp.service;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.dita.myapp.domain.Account;
+import com.dita.myapp.dto.AccountDto;
 import com.dita.myapp.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 
@@ -50,12 +51,12 @@ public class AccountService{
     private final AccountRepository accountRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public Account createAccount(String uid, String uname, String password, String email){
+    public Account createAccount(AccountDto accdto){
         Account account = new Account();
-        account.setUid(uid);
-        account.setName(uname);
-        account.setPassword(passwordEncoder.encode(password));
-        account.setEmail(email);
+        account.setUid(accdto.getUid());
+        account.setUname(accdto.getUname());
+        account.setPassword(passwordEncoder.encode(accdto.getPassword()));
+        account.setEmail(accdto.getEmail());
 
         this.accountRepository.save(account);
         return account;
