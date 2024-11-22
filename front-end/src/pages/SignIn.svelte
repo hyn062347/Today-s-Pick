@@ -25,11 +25,12 @@
             user.set(result);
             sessionStorage.setItem("idkey",result.uid);
             console.log('서버 응답', user);
+            window.location.href="/"
         }catch (error){
             console.error(`데이터 전송 오류`, error);
             user.set(null);
         }
-        window.location.href="/"
+        
     }
 </script>
 
