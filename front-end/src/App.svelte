@@ -1,7 +1,7 @@
 <script>
     //$: foods = [];
     import { Router, Route, Link } from "svelte-routing";
-    import { user } from './pages/SignIn.svelte';
+    import { user } from './store';
     import Home from "./pages/Home.svelte";
     import About from "./pages/About.svelte";
     import Carana from "./pages/Carana.svelte";

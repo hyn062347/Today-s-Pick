@@ -1,11 +1,10 @@
 <script>
-    import {writable} from 'svelte/store';
+    import { user } from '../store';
     let formData = {
         uid:'',
         password:'',
     }
 
-    export const user = writable(null);
 
     async function sendData(){
         try{

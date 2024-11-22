@@ -1,7 +1,7 @@
 <script>
     import Slider from "../components/Slider.svelte";
     import { navigate } from "svelte-routing";
-    import { user } from './SignIn.svelte';
+    import { user } from '../store';
     export let name = "홈페이지";
 </script>
 
