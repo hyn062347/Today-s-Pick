@@ -8,7 +8,7 @@ import com.dita.myapp.dto.AccountDto;
 import com.dita.myapp.dto.SignInDto;
 import com.dita.myapp.service.AccountService;
 
-
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 
@@ -17,6 +17,9 @@ import java.sql.SQLException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 @RequiredArgsConstructor
@@ -30,9 +33,10 @@ public class AccountController {
     @PostMapping("/signup")
     public ResponseEntity<?> createAccount(@RequestBody AccountDto accountDto) {
         try{
-            int i=accountService.createAccount(accountDto);
-            if(i>=1)
-                throw new SQLException("Invalid UID or email");
+            int i = accountService.createAccount(accountDto);
+            if(i>=1){
+                throw new SQLException("Invalid ID or email");
+            }
         }
         catch(Exception e){
             return ResponseEntity.ok().body(false);
