@@ -1,7 +1,6 @@
 package com.dita.myapp.repository;
 
 import com.dita.myapp.domain.Account;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 // import org.springframework.stereotype.Repository;
@@ -17,7 +16,6 @@ import org.springframework.data.repository.query.Param;
 
 public interface AccountRepository extends CrudRepository<Account, String>{
 
-    @Modifying
-    @Query("insert into Account(uid, password, uname, email) values(?1,?2,?3,?4)")
-    public boolean signup(String uid, String password, String uname, String email);
+    @Query(value = "select count(*) from Account where uid=?1",nativeQuery=true)
+    public int isExistUid(String uid);
 }
