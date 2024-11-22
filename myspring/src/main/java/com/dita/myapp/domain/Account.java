@@ -1,6 +1,8 @@
 package com.dita.myapp.domain;
 import java.sql.Timestamp;
 
+import org.hibernate.annotations.CurrentTimestamp;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.Data;
@@ -14,7 +16,9 @@ public class Account{
     @Id
     private String uid;
     private String password;
-    private String name;
+    private String uname;
     private String email;
-    private Timestamp timestamp;
+
+    @CurrentTimestamp
+    private Timestamp created_at;
 }
