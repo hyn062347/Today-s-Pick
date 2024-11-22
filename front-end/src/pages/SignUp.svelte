@@ -37,7 +37,7 @@
                 <input type="ID" class="input" placeholder="ID" bind:value={formData.uid}/>
                 <input type="text" class="input" placeholder="Name" bind:value={formData.uname}/>
                 <input type="password" class="input" placeholder="Password" bind:value={formData.password}/>
-                <input type="password-confirm" class="input" placeholder="Password Confirm" />
+                <input type="password" class="input" placeholder="Password Confirm" />
                 <input type="email" class="input" placeholder="Email" bind:value={formData.email}/>
                 <input type="text" class="input" placeholder="선호 음식 종류" bind:value={formData.category}/>
                 <input type="text" class="input" placeholder="선호 음식 세부 분류" />

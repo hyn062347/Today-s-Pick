@@ -12,6 +12,7 @@
     import Favorite from "./pages/Favorite.svelte";
     import MyPage from "./pages/MyPage.svelte";
     import MyRecipe from "./pages/MyRecipe.svelte";
+    import HeaderUser from "./components/Header_User.svelte";
 
     async function checkSession() {
         const response = await fetch('/api/account/session',{
@@ -31,7 +32,11 @@
 </script>
 
 <main>
-    <Header/>
+    {#if !sessionStorage.getItem("idkey")}
+        <Header/>
+    {:else}
+        <HeaderUser/>
+    {/if}
     <Router>
         <Route path="/" component = {Home} />
         <Route path="/about" component = {About} />

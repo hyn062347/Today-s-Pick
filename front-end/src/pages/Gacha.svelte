@@ -1,21 +1,21 @@
 <script>
-    let mealTime = "전체"; // 아침, 점심, 저녁
+    let meal = "전체"; // 식사, 간식, 디저트
     let cuisine = "전체"; // 한식, 양식, 중식, 일식
     let category = "전체"; // 밥류, 면류, 육류, 튀김류
     let selectedMenu = null; // 가챠로 선택된 메뉴
 
     // 임시 데이터 (DB 연동 예정)
     let menus = [
-        { name: "치킨", mealTime: "저녁", cuisine: "한식", category: "육류", image: "/img/slide1.png" },
-        { name: "스파게티", mealTime: "점심", cuisine: "양식", category: "면류", image: "/img/slide2.png" },
-        { name: "초밥", mealTime: "점심", cuisine: "일식", category: "밥류", image: "/img/slide3.png" },
+        { name: "치킨", meal: "식사", cuisine: "한식", category: "육류", image: "/img/slide1.png" },
+        { name: "스파게티", meal: "식사", cuisine: "양식", category: "면류", image: "/img/slide2.png" },
+        { name: "초밥", meal: "식사", cuisine: "일식", category: "밥류", image: "/img/slide3.png" },
     ];
 
     // 메뉴 랜덤 뽑기
     function pickRandomMenu() {
         const filteredMenus = menus.filter(
             menu =>
-                (mealTime === "전체" || menu.mealTime === mealTime) &&
+                (meal === "전체" || menu.meal === meal) &&
                 (cuisine === "전체" || menu.cuisine === cuisine) &&
                 (category === "전체" || menu.category === category)
         );
@@ -26,6 +26,17 @@
             alert("조건에 맞는 메뉴가 없습니다. 다시 선택해주세요.");
         }
     }
+
+    // 식당 찾기
+    function findMenu() {
+    if (!selectedMenu) {
+        alert("메뉴가 선택되지 않았습니다. 메뉴를 먼저 뽑아주세요.");
+        return;
+    }
+
+    const link = `https://map.naver.com/p/search/${encodeURIComponent(selectedMenu.name)}`;
+    window.open(link, "_blank"); // 새 탭에서 열기
+}
 </script>
 
 <main>
@@ -37,10 +48,10 @@
             </div>
             <div class="options">
                 <div class="option">
-                    <span class:active={mealTime === "전체"} on:click={() => (mealTime = "전체")}>전체</span>
-                    <span class:active={mealTime === "아침"} on:click={() => (mealTime = "아침")}>아침</span>
-                    <span class:active={mealTime === "점심"} on:click={() => (mealTime = "점심")}>점심</span>
-                    <span class:active={mealTime === "저녁"} on:click={() => (mealTime = "저녁")}>저녁</span>
+                    <span class:active={meal === "전체"} on:click={() => (meal = "전체")}>전체</span>
+                    <span class:active={meal === "식사"} on:click={() => (meal = "식사")}>식사</span>
+                    <span class:active={meal === "간식"} on:click={() => (meal = "간식")}>간식</span>
+                    <span class:active={meal === "디저트"} on:click={() => (meal = "디저트")}>디저트</span>
                 </div>
                 <div class="option">
                     <span class:active={cuisine === "전체"} on:click={() => (cuisine = "전체")}>전체</span>
@@ -66,10 +77,10 @@
             </div>
             <div class="options">
                 <div class="option">
-                    <span class:active={mealTime === "전체"} on:click={() => (mealTime = "전체")}>전체</span>
-                    <span class:active={mealTime === "아침"} on:click={() => (mealTime = "아침")}>아침</span>
-                    <span class:active={mealTime === "점심"} on:click={() => (mealTime = "점심")}>점심</span>
-                    <span class:active={mealTime === "저녁"} on:click={() => (mealTime = "저녁")}>저녁</span>
+                    <span class:active={meal === "전체"} on:click={() => (meal = "전체")}>전체</span>
+                    <span class:active={meal === "식사"} on:click={() => (meal = "식사")}>식사</span>
+                    <span class:active={meal === "간식"} on:click={() => (meal = "간식")}>간식</span>
+                    <span class:active={meal === "디저트"} on:click={() => (meal = "디저트")}>디저트</span>
                 </div>
                 <div class="option">
                     <span class:active={cuisine === "전체"} on:click={() => (cuisine = "전체")}>전체</span>
@@ -90,7 +101,7 @@
                 <h2>{selectedMenu.name}</h2>
                 <div>
                     <button class="action-button" on:click={pickRandomMenu}>다시 뽑기</button>
-                    <button class="action-button yellow" >식당 찾기</button>
+                    <button class="action-button yellow" on:click={findMenu}>식당 찾기</button>
                     <button class="action-button orange">레시피 찾기</button>
                 </div>
             </div>
