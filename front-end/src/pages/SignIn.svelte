@@ -1,8 +1,11 @@
 <script>
+    import {writable} from 'svelte/store';
     let formData = {
         uid:'',
         password:'',
     }
+
+    export const user = writable(null);
 
     async function sendData(){
         try{
@@ -19,9 +22,11 @@
             }
 
             const result = await response.json();
+            user.set(result);
             console.log('서버 응답', result);
         }catch (error){
             console.error(`데이터 전송 오류`, error);
+            user.set(null);
         }
     }
 </script>

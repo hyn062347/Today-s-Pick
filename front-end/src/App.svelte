@@ -1,6 +1,7 @@
 <script>
     //$: foods = [];
     import { Router, Route, Link } from "svelte-routing";
+    import { user } from './pages/SignIn.svelte';
     import Home from "./pages/Home.svelte";
     import About from "./pages/About.svelte";
     import Carana from "./pages/Carana.svelte";
@@ -11,6 +12,20 @@
     import Favorite from "./pages/Favorite.svelte";
     import MyPage from "./pages/MyPage.svelte";
     import MyRecipe from "./pages/MyRecipe.svelte";
+
+    async function checkSession() {
+        const response = await fetch('/api/account/session',{
+            method: 'GET',
+            credentials: 'include',
+        });
+
+        if(response.ok){
+            const data = await response.json();
+            user.set(data);
+        }else{
+            user.set(null);
+        }
+    }
 
 </script>
 

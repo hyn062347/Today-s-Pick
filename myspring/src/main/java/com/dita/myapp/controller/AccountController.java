@@ -46,17 +46,35 @@ public class AccountController {
     }
     
     @PostMapping("/signin")
-    public ResponseEntity<?> signIn(@RequestBody SignInDto signInDto) {
+    public ResponseEntity<?> signIn(@RequestBody SignInDto signInDto, HttpSession session) {
         Account account;
         try {
             account = accountService.signIn(signInDto.getUid(), signInDto.getPassword());
         } catch (Exception e) {
             return ResponseEntity.status(401).body(e.toString());
         }
+
+        session.setAttribute("user", account);
         
         SignInDto dto=new SignInDto();
         dto.setUid(account.getUid());
         return ResponseEntity.ok().body(dto);
+    }
+    
+    @GetMapping("/session")
+    public ResponseEntity<?> getSession(HttpSession session) {
+        Account account = (Account) session.getAttribute("user");
+        if(account == null){
+            return ResponseEntity.status(401).body("Not logged in");
+        }
+        return ResponseEntity.ok().body(account);
+    }
+    
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout(HttpSession session) {
+        session.invalidate();;
+        
+        return ResponseEntity.ok().body("Logged out");
     }
     
 
