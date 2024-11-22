@@ -1,5 +1,7 @@
 package com.dita.myapp.service;
 
+import java.sql.SQLException;
+
 // import com.dita.myapp.dto.LoginRequest;
 // import com.dita.myapp.dto.SignupRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -51,15 +53,16 @@ public class AccountService{
     private final AccountRepository accountRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public Account createAccount(AccountDto accdto){
+    public boolean createAccount(AccountDto accdto){
         Account account = new Account();
         account.setUid(accdto.getUid());
         account.setUname(accdto.getUname());
         account.setPassword(passwordEncoder.encode(accdto.getPassword()));
         account.setEmail(accdto.getEmail());
 
-        this.accountRepository.save(account);
-        return account;
+        boolean b=this.accountRepository.signup(account.getUid(),account.getPassword(),account.getUname(),account.getEmail());
+        System.out.println("this is log!!!!!!"+b);
+        return b;
     }
 
     public Account signIn(String uid, String password){

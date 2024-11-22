@@ -14,9 +14,9 @@
                 body: JSON.stringify(formData)
             });
 
-            // if(!response.ok){
-            //     throw new Error(`서버오류: ${response.status}`);
-            // }
+            if(!response.ok){
+                throw new Error(`서버오류: ${response.status}`);
+            }
 
             const result = await response.json();
             console.log('서버 응답', result);

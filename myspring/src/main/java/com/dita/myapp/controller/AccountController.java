@@ -12,6 +12,8 @@ import com.dita.myapp.service.AccountService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 
+import java.sql.SQLException;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,20 +28,31 @@ public class AccountController {
     private final AccountService accountService;
 
     @PostMapping("/signup")
-    public ResponseEntity<Account> createAccount(@RequestBody AccountDto accountDto) {
-        Account account = accountService.createAccount(accountDto);
+    public ResponseEntity<?> createAccount(@RequestBody AccountDto accountDto) {
+        try{
+            boolean b=accountService.createAccount(accountDto);
+            if(b==false)
+                throw new SQLException("Invalid UID or email");
+        }
+        catch(Exception e){
+            return ResponseEntity.ok().body(false);
+        }
 
-        return ResponseEntity.ok(account);
+        return ResponseEntity.ok().body(true);
     }
     
     @PostMapping("/signin")
     public ResponseEntity<?> signIn(@RequestBody SignInDto signInDto) {
+        Account account;
         try {
-            Account account = accountService.signIn(signInDto.getUid(), signInDto.getPassword());
-            return ResponseEntity.ok().body(account);
+            account = accountService.signIn(signInDto.getUid(), signInDto.getPassword());
         } catch (Exception e) {
             return ResponseEntity.status(401).body(e.toString());
         }
+        
+        SignInDto dto=new SignInDto();
+        dto.setUid(account.getUid());
+        return ResponseEntity.ok().body(dto);
     }
     
 
