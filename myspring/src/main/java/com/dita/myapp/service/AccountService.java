@@ -53,16 +53,18 @@ public class AccountService{
     private final AccountRepository accountRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public boolean createAccount(AccountDto accdto){
+    public int createAccount(AccountDto accdto){
         Account account = new Account();
         account.setUid(accdto.getUid());
         account.setUname(accdto.getUname());
         account.setPassword(passwordEncoder.encode(accdto.getPassword()));
         account.setEmail(accdto.getEmail());
+        int i=accountRepository.isExistUid(account.getUid());
+        if(i==0)
+            accountRepository.save(account);
 
-        boolean b=this.accountRepository.signup(account.getUid(),account.getPassword(),account.getUname(),account.getEmail());
-        System.out.println("this is log!!!!!!"+b);
-        return b;
+        System.out.println("this is log!!!!!!"+i);
+        return i;
     }
 
     public Account signIn(String uid, String password){

@@ -30,8 +30,8 @@ public class AccountController {
     @PostMapping("/signup")
     public ResponseEntity<?> createAccount(@RequestBody AccountDto accountDto) {
         try{
-            boolean b=accountService.createAccount(accountDto);
-            if(b==false)
+            int i=accountService.createAccount(accountDto);
+            if(i>=1)
                 throw new SQLException("Invalid UID or email");
         }
         catch(Exception e){
