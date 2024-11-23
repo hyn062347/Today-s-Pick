@@ -10,7 +10,7 @@
         window.location.href = '/signup';
     }
     function navigateToSignIn(){
-        window.location.href = '/signin';4
+        window.location.href = '/signin';
     }
 
 </script>
@@ -21,7 +21,7 @@
     </div>
     <label class="Title" on:click={navigateToHome}>오늘 뭐먹지?</label>
     <div class="ButtonSection">
-        <button class="LoginButton" on:click={navigateToSignIn}>Login</button>
+        <button class="LoginButton" on:click={navigateToSignIn}>Sign In</button>
         <button class="RegisterButton" on:click={navigateToSignUp}>Sign Up</button>
     </div>
 </header>
