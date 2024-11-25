@@ -46,13 +46,15 @@
     <div class="form-box">
         <form class="form" on:submit|preventDefault={handleUpload}>
             <div class="image-upload">
-                <div class="image-placeholder">
-                    {#if uploadData.image}
-                        <img src={URL.createObjectURL(uploadData.image)} alt="미리보기" />
-                    {:else}
-                         <span>이미지 첨부</span>
-                    {/if}
-                </div>
+                <label for="image-upload">
+                    <div class="image-placeholder">
+                        {#if uploadData.image}
+                            <img src={URL.createObjectURL(uploadData.image)} alt="미리보기" />
+                        {:else}
+                            <span>이미지 첨부</span>
+                        {/if}
+                    </div>
+                </label>
                 <input id="image-upload" type="file" accept="image/*" class="input-file" on:change={(e) => uploadData.image = e.target.files[0]} />
             </div>
 
