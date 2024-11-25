@@ -1,10 +1,26 @@
 package com.dita.myapp.domain;
 
+import java.io.Serializable;
+import java.sql.Timestamp;
+
+import org.hibernate.annotations.CurrentTimestamp;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.IdClass;
 import lombok.Data;
 
 @Data
 @Entity
-public class Favorite {
-    
+@IdClass(FavoriteId.class)
+public class Favorite{
+
+    @Id
+    private String uid;
+
+    @Id
+    private int mid;
+
+    @CurrentTimestamp
+    private Timestamp added_at;
 }

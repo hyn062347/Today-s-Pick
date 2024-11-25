@@ -6,9 +6,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import com.dita.myapp.domain.Favorite;
+import com.dita.myapp.domain.FavoriteId;
 
 public interface FavoriteRepository extends CrudRepository<Favorite, String>{
-    
+
     //즐찾 관련
     @Query(value = "select count(*) from Favorite where uid=?1 and mid=?2",nativeQuery = true)
     public void findByFavorite(String uid,int mid);

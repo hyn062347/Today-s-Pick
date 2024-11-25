@@ -15,6 +15,7 @@ public class Account{
 
     @Id
     private String uid;
+    
     private String password;
     private String uname;
     private String email;
