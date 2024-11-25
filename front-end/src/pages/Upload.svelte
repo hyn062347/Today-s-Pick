@@ -107,8 +107,16 @@
         padding: 32px 24px 24px;
         gap: 16px;
     }
-
+    
     .image-upload {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 15px;
+        width: 80%;
+    }
+
+    .image-upload label {
         display: flex;
         justify-content: center;
         align-items: center;
