@@ -1,10 +1,13 @@
 <script>
+    import Option from "./Option.svelte";
+    let isOpen = false;
+
     function navigateToHome() {
         window.location.href = '/';
     }
 
-    function myPage() {
-        window.location.href='/mypage';
+    function toggleOption() {
+        isOpen = !isOpen;
     }
 </script>
 
@@ -14,7 +17,10 @@
     </div>
     <label class="Title" on:click={navigateToHome}>오늘 뭐먹지?</label>
     <div class="ButtonSection">
-        <img src="/img/user.png" alt="Profile" on:click={myPage}/>
+        <img src="/img/user.png" alt="Profile" on:click={toggleOption}/>
+        {#if isOpen}
+            <Option />
+        {/if}
     </div>
 </header>
 
@@ -60,7 +66,8 @@
 
     .ButtonSection{
         margin-left: 10px;
-        margin-right: 10px;
+        margin-right: 15px;
+        position: relative;
     }
 
     .ButtonSection img{
