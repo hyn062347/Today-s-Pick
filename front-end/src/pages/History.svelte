@@ -4,7 +4,7 @@
     function deleteData() {
         console.log("Delete");
     }
-    function directGacha() {
+    function navigateToGacha() {
         window.location.href = '/gacha';
     }
 </script>
@@ -37,7 +37,7 @@
             </div>
         </div>
         <div class="contentBox">
-            <span class="direct" on:click={directGacha}>바로가기</span>
+            <span class="direct" on:click={navigateToGacha}>바로가기</span>
             <span class="delete" on:click={() => deleteData()}>Delete</span>
         </div>
     </div>

@@ -13,24 +13,10 @@
     import MyPage from "./pages/MyPage.svelte";
     import MyRecipe from "./pages/MyRecipe.svelte";
     import HeaderUser from "./components/Header_User.svelte";
+    import Upload from "./pages/Upload.svelte";
 
     let currentPath = "/";
 
-    async function checkSession() {
-        const response = await fetch('/api/account/session',{
-            method: 'GET',
-            credentials: 'include',
-        });
-
-        if(response.ok){
-            const data = await response.json();
-            user.set(data);
-        }else{
-            user.set(null);
-        }
-    }
-
-    checkSession();
 </script>
 
 <main>
@@ -49,6 +35,7 @@
         <Route path="/favorite" component = {Favorite}/>
         <Route path="/mypage" component = {MyPage}/>
         <Route path="/myrecipe" component = {MyRecipe}/>
+        <Route path="/upload" component = {Upload}/>
     </Router>
 </main>
 

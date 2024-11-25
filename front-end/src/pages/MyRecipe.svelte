@@ -6,6 +6,9 @@
     function deleteData() {
         console.log("Delete");
     }
+    function navigateToUpload() {
+        window.location.href = '/upload';
+    }
 </script>
 
 <main class="main">
@@ -16,7 +19,7 @@
             <span class="subtitle">Subtitle</span>
         </div>
         <div class="contentBox">
-            <span class="Edit" on:click={() => editData()}>Edit</span>
+            <span class="edit" on:click={() => editData()}>Edit</span>
             <span class="delete" on:click={() => deleteData()}>Delete</span>
         </div>
     </div>
@@ -30,11 +33,14 @@
             <span class="subtitle">Subtitle</span>
         </div>
         <div class="contentBox">
-            <span class="Edit" on:click={() => editData()}>Edit</span>
+            <span class="edit" on:click={() => editData()}>Edit</span>
             <span class="delete" on:click={() => deleteData()}>Delete</span>
         </div>
     </div>
     <!-- --------------테스트용--------------- -->
+     <div class="element">
+        <span class="upload" on:click={navigateToUpload}>등록하기</span>
+     </div>
 </main>
 
 <style>
@@ -64,9 +70,23 @@
         margin: 15px;
     }
 
+    .element .edit {
+        font-size: 20px;
+    }
+
     .element .delete {
         font-size: 20px;
         color: red;
+    }
+
+    .element .upload {
+        display: flex;
+        flex: 1;
+        align-items: center;
+        justify-content: center;
+        height: 130px;
+        font-size: 30px;
+        font-weight: bold;
     }
 
     .stringBox {
