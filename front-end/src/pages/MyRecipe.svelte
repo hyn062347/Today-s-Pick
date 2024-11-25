@@ -39,7 +39,7 @@
 
 <style>
     .main {
-        padding: 5% 20%;
+        padding: 0;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -52,18 +52,20 @@
         gap: 20px;
         align-items: center;
         justify-content: space-between;
-        border-bottom: 1px solid;
-        padding-left: 10px;
-        padding-right: 10px;
+        border-bottom: 1px solid #b3b3b3;
+        padding-right: 20px;
     }
 
     .element img {
-        height: 70px;
-        width: 70px;
-        margin: 10px;
+        border-radius: 5px;
+        object-fit: cover;
+        height: 100px;
+        width: 100px;
+        margin: 15px;
     }
 
     .element .delete {
+        font-size: 20px;
         color: red;
     }
 
@@ -80,7 +82,8 @@
     }
 
     .stringBox .subtitle {
-        font-size: large;
+        font-size: 16px;
+        font-family: 'Inter';
     }
 
     .contentBox {

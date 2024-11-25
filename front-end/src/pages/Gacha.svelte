@@ -29,14 +29,19 @@
 
     // 식당 찾기
     function findMenu() {
-    if (!selectedMenu) {
-        alert("메뉴가 선택되지 않았습니다. 메뉴를 먼저 뽑아주세요.");
-        return;
+        if (!selectedMenu) {
+            alert("메뉴가 선택되지 않았습니다. 메뉴를 먼저 뽑아주세요.");
+            return;
+        }
+
+        const link = `https://map.naver.com/p/search/${encodeURIComponent(selectedMenu.name)}`;
+        window.open(link, "_blank"); // 새 탭에서 열기
     }
 
-    const link = `https://map.naver.com/p/search/${encodeURIComponent(selectedMenu.name)}`;
-    window.open(link, "_blank"); // 새 탭에서 열기
-}
+    //레시피 찾기
+    function findRecipe() {
+        window.location.href='/recipe';
+    }
 </script>
 
 <main>
@@ -102,7 +107,7 @@
                 <div>
                     <button class="action-button" on:click={pickRandomMenu}>다시 뽑기</button>
                     <button class="action-button yellow" on:click={findMenu}>식당 찾기</button>
-                    <button class="action-button orange">레시피 찾기</button>
+                    <button class="action-button orange" on:click={findRecipe}>레시피 찾기</button>
                 </div>
             </div>
         {/if}

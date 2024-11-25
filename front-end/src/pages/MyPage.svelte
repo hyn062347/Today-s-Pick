@@ -10,12 +10,16 @@
             <input type="text" class="input name" placeholder="Name"/>
             <div class="form-container">
                 <input type="ID" class="input" placeholder="ID" />
-                <input type="password" class="input" placeholder="Previous Password" />
-                <input type="password" class="input" placeholder="New Password"/>
+                <input type="password" class="input" placeholder="Password" />
+                <input type="password" class="input" placeholder="Password Confirm"/>
                 <input type="email" class="input" placeholder="Email"/>
-                <input type="text" class="input last" placeholder="Favorite"/>
+                <input type="text" class="input last" placeholder="Favorite1"/>
+                <input type="text" class="input last" placeholder="Favorite1"/>
             </div>
-            <button type="submit">Confirm</button>
+            <div>
+                <button type="reset">Cancel</button>
+                <button type="submit">Confirm</button>
+            </div>
         </form>
     </div>
 </main>
@@ -37,12 +41,12 @@
 
     .form-box {
         position: absolute;
-        top: 30%;
-        max-width: 300px;
+        top: 15%;
+        max-width: 350px;
         background: #f1f7fe;
         overflow: hidden;
         border-radius: 16px;
-        color: #010101;
+        color: #333;
     }
 
     .form {
@@ -76,7 +80,7 @@
         background-color: #fff;
         margin: 1rem 0 0.5rem;
         font-size: 0.9rem;
-        width: 100%;
+        width: 90%;
     }
 
     .input {

@@ -77,8 +77,8 @@
     </div>
 
     <!-- 좌우 버튼 -->
-    <button class="prev" on:click={previousSlide}>&lt;</button>
-    <button class="next" on:click={nextSlide}>&gt;</button>
+    <!-- <button class="prev" on:click={previousSlide}>&lt;</button> -->
+    <!-- <button class="next" on:click={nextSlide}>&gt;</button> -->
 </div>
 
 <style>

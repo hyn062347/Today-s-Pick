@@ -3,6 +3,9 @@
         window.location.href = '/';
     }
 
+    function myPage() {
+        window.location.href='/mypage';
+    }
 </script>
 
 <header class="HeaderForm">
@@ -11,7 +14,7 @@
     </div>
     <label class="Title" on:click={navigateToHome}>오늘 뭐먹지?</label>
     <div class="ButtonSection">
-        <img src="/img/user.png" alt="Profile"/>
+        <img src="/img/user.png" alt="Profile" on:click={myPage}/>
     </div>
 </header>
 

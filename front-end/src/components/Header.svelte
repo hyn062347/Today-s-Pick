@@ -1,4 +1,5 @@
 <script>
+    import Option from "./Option.svelte";
     import { navigate } from "svelte-routing";
 
     let currentPage = 0;
@@ -25,8 +26,6 @@
         <button class="RegisterButton" on:click={navigateToSignUp}>Sign Up</button>
     </div>
 </header>
-
-<main></main>
 
 <style>
     .Logo{
