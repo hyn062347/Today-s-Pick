@@ -13,7 +13,6 @@
     import MyPage from "./pages/MyPage.svelte";
     import MyRecipe from "./pages/MyRecipe.svelte";
     import HeaderUser from "./components/Header_User.svelte";
-    import HeaderUser2 from "./components/Header_User2.svelte";
 
     let currentPath = "/";
 
@@ -38,11 +37,7 @@
     {#if !sessionStorage.getItem("idkey")}
         <Header/>
     {:else}
-        {#if currentPath === "/myrecipe" || currentPath === "/upload"}
-            <HeaderUser2 />
-        {:else}
-            <HeaderUser />
-        {/if}
+        <HeaderUser />
     {/if}
     <Router on:routeEvent={(e) => (currentPath = e.detail.location.pathname)}>
         <Route path="/" component = {Home} />
