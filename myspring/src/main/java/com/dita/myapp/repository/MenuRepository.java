@@ -7,9 +7,9 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.dita.myapp.domain.Menu;
 
-public interface MenuRepository extends CrudRepository<Menu, String>{
+public interface MenuRepository extends CrudRepository<Menu, Long>{
     
     //가챠 관련
-    @Query(value = "select * from Menu  WHERE ctg=?1 order by RAND() LIMIT 1",nativeQuery = true)
+    @Query(value = "select * from Menu WHERE ctg=?1 order by RAND() LIMIT 1",nativeQuery = true)
     public List<Menu> gachaOneMenu(String ctg);
 }

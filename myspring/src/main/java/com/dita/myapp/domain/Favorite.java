@@ -19,7 +19,7 @@ public class Favorite{
     private String uid;
 
     @Id
-    private int mid;
+    private Long mid;
 
     @CurrentTimestamp
     private Timestamp added_at;

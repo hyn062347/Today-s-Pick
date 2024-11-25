@@ -7,8 +7,9 @@ import lombok.Data;
 @Data
 @Entity
 public class Menu {
+
     @Id
-    private int mid;
+    private Long mid;
     
     private String mname;
     private String ctg;
