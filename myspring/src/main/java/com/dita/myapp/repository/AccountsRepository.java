@@ -1,6 +1,6 @@
 package com.dita.myapp.repository;
 
-import com.dita.myapp.domain.Account;
+import com.dita.myapp.domain.Accounts;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
@@ -14,16 +14,16 @@ import org.springframework.data.repository.CrudRepository;
 //     Optional<Account> findByEmail(String email);
 // }
 
-public interface AccountRepository extends CrudRepository<Account, String>{
+public interface AccountsRepository extends CrudRepository<Accounts, String>{
 
     //계정 관련
-    @Query(value = "select count(*) from Account where uid=?1",nativeQuery=true)
+    @Query(value = "select count(*) from Accounts where uid=?1",nativeQuery=true)
     public int isExistUid(String uid);
 
-    @Query(value = "select uid from Account where email=?1",nativeQuery = true)
+    @Query(value = "select uid from Accounts where email=?1",nativeQuery = true)
     public String findIdByEmail(String email);
 
-    @Query(value="select * from Account where uid=?1",nativeQuery = true)
-    public List<Account> findByUid(String uid);
+    @Query(value="select * from Accounts where uid=?1",nativeQuery = true)
+    public List<Accounts> findByUid(String uid);
 
 }

@@ -3,10 +3,10 @@ package com.dita.myapp.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.dita.myapp.domain.Account;
-import com.dita.myapp.dto.AccountDto;
+import com.dita.myapp.domain.Accounts;
+import com.dita.myapp.dto.AccountsDto;
 import com.dita.myapp.dto.SignInDto;
-import com.dita.myapp.service.AccountService;
+import com.dita.myapp.service.AccountsService;
 
 
 import lombok.RequiredArgsConstructor;
@@ -23,14 +23,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RestController
 @RequestMapping("/api/account")
 @Log
-public class AccountController {
+public class AccountsController {
 
-    private final AccountService accountService;
+    private final AccountsService accountsService;
 
     @PostMapping("/signup")
-    public ResponseEntity<?> createAccount(@RequestBody AccountDto accountDto) {
+    public ResponseEntity<?> createAccount(@RequestBody AccountsDto accountsDto) {
         try{
-            int i=accountService.createAccount(accountDto);
+            int i=accountsService.createAccount(accountsDto);
             if(i>=1)
                 throw new SQLException("Invalid UID or email");
         }
@@ -43,9 +43,9 @@ public class AccountController {
     
     @PostMapping("/signin")
     public ResponseEntity<?> signIn(@RequestBody SignInDto signInDto) {
-        Account account;
+        Accounts account;
         try {
-            account = accountService.signIn(signInDto.getUid(), signInDto.getPassword());
+            account = accountsService.signIn(signInDto.getUid(), signInDto.getPassword());
         } catch (Exception e) {
             return ResponseEntity.status(401).body(e.toString());
         }

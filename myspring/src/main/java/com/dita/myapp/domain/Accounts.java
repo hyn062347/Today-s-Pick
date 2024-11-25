@@ -11,11 +11,10 @@ import lombok.Data;
 //@Getter, @Setter, @ToString @EqualAndHashCode, @RequiredArgsConstructor = @Data
 // https://dev-code-notepad.tistory.com/153 에 설명 되있음
 @Entity
-public class Account{
+public class Accounts{
 
     @Id
     private String uid;
-    
     private String password;
     private String uname;
     private String email;

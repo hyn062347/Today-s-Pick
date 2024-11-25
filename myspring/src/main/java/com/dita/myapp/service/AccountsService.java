@@ -6,9 +6,9 @@ import java.sql.SQLException;
 // import com.dita.myapp.dto.SignupRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import com.dita.myapp.domain.Account;
-import com.dita.myapp.dto.AccountDto;
-import com.dita.myapp.repository.AccountRepository;
+import com.dita.myapp.domain.Accounts;
+import com.dita.myapp.dto.AccountsDto;
+import com.dita.myapp.repository.AccountsRepository;
 import lombok.RequiredArgsConstructor;
 
 // import java.util.Optional;
@@ -48,13 +48,13 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Service
-public class AccountService{
+public class AccountsService{
     //오류 일어나면 초기화 없어서 오류나는걸수도 있음
-    private final AccountRepository accountRepository;
+    private final AccountsRepository accountRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public int createAccount(AccountDto accdto){
-        Account account = new Account();
+    public int createAccount(AccountsDto accdto){
+        Accounts account = new Accounts();
         account.setUid(accdto.getUid());
         account.setUname(accdto.getUname());
         account.setPassword(passwordEncoder.encode(accdto.getPassword()));
@@ -66,8 +66,8 @@ public class AccountService{
         return i;
     }
 
-    public Account signIn(String uid, String password){
-        Account account = accountRepository.findById(uid).orElseThrow(()-> new IllegalArgumentException("Invalid UID or password"));
+    public Accounts signIn(String uid, String password){
+        Accounts account = accountRepository.findById(uid).orElseThrow(()-> new IllegalArgumentException("Invalid UID or password"));
 
         if (!passwordEncoder.matches(password, account.getPassword())) {
             throw new IllegalArgumentException("Invalid UID or password");
