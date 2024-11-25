@@ -1,5 +1,5 @@
 <script>
-    import Option from "./Option.svelte";
+    //import Option from "./Option.svelte";
     import { navigate } from "svelte-routing";
 
     let currentPage = 0;

@@ -63,7 +63,6 @@ public class AccountService{
         if(i==0)
             accountRepository.save(account);
 
-        System.out.println("this is log!!!!!!"+i);
         return i;
     }
 
@@ -73,7 +72,6 @@ public class AccountService{
         if (!passwordEncoder.matches(password, account.getPassword())) {
             throw new IllegalArgumentException("Invalid UID or password");
         }
-        System.out.println("this is log!!!!!!!!!!!!!!!!! "+account);
         return account;
     }
 }
