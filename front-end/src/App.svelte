@@ -14,7 +14,8 @@
     import MyRecipe from "./pages/MyRecipe.svelte";
     import HeaderUser from "./components/Header_User.svelte";
     import Upload from "./pages/Upload.svelte";
-
+    import Recipe from "./pages/Recipe.svelte";
+    import History from "./pages/History.svelte";
     let currentPath = "/";
 
 </script>
@@ -36,6 +37,8 @@
         <Route path="/mypage" component = {MyPage}/>
         <Route path="/myrecipe" component = {MyRecipe}/>
         <Route path="/upload" component = {Upload}/>
+        <Route path="/recipe" component = {Recipe}/>
+        <Route path="/history" component = {History}/>
     </Router>
 </main>
 

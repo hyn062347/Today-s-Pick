@@ -1,4 +1,5 @@
 <script>
+    import { navigate } from "svelte-routing";
     let uploadData = {
         image: null,
         title: '',
@@ -40,6 +41,8 @@
             alert("업로드 실패");
         }
     }
+
+
 </script>
 
 <main class="setCenter">
@@ -73,8 +76,8 @@
             </div>
 
             <div class="button-group">
-                <button type="button" class="cancel-btn">취소</button>
-                <button type="submit" class="submit-btn">확인</button>
+                <button type="button" class="cancel-btn" on:click={() => navigate("/")}>취소</button>
+                <button type="submit" class="submit-btn" on:click={() => handleUpload}>확인</button>
             </div>
         </form>
     </div>
@@ -112,7 +115,6 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        margin-bottom: 15px;
         width: 80%;
     }
 
@@ -120,7 +122,6 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        margin-bottom: 15px;
         width: 80%;
     }
 

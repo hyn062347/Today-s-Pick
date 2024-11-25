@@ -9,6 +9,8 @@
 </script>
 
 <main class="main">
+    <h1>Recipe</h1>
+
     <div class="element">
         <img src={image} alt="Image" />
         <div class="stringBox">
