@@ -1,11 +1,10 @@
 <script>
-    export let onClose;
 </script>
 
 
 <ul class="option">
     <li><a href="/mypage">마이페이지</a></li>
-    <li><a href="/recipe">내 레시피</a></li>
+    <li><a href="/myrecipe">내 레시피</a></li>
     <li><a href="/history">히스토리</a></li>
     <li><a href="/">로그아웃</a></li>
 </ul>

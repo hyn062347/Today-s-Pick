@@ -13,6 +13,9 @@
     import MyPage from "./pages/MyPage.svelte";
     import MyRecipe from "./pages/MyRecipe.svelte";
     import HeaderUser from "./components/Header_User.svelte";
+    import HeaderUser2 from "./components/Header_User2.svelte";
+
+    let currentPath = "/";
 
     async function checkSession() {
         const response = await fetch('/api/account/session',{
@@ -35,9 +38,13 @@
     {#if !sessionStorage.getItem("idkey")}
         <Header/>
     {:else}
-        <HeaderUser/>
+        {#if currentPath === "/myrecipe" || currentPath === "/upload"}
+            <HeaderUser2 />
+        {:else}
+            <HeaderUser />
+        {/if}
     {/if}
-    <Router>
+    <Router on:routeEvent={(e) => (currentPath = e.detail.location.pathname)}>
         <Route path="/" component = {Home} />
         <Route path="/about" component = {About} />
         <Route path="/carana" component = {Carana}/>

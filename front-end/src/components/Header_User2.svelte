@@ -1,13 +1,10 @@
 <script>
-    import Option from "./Option.svelte";
-    let isOpen = false;
-
     function navigateToHome() {
         window.location.href = '/';
     }
 
-    function toggleOption() {
-        isOpen = !isOpen;
+    function uploadRecipe() {
+        window.location.href='/upload';
     }
 </script>
 
@@ -17,14 +14,9 @@
     </div>
     <label class="Title" on:click={navigateToHome}>오늘 뭐먹지?</label>
     <div class="ButtonSection">
-        <img src="/img/user.png" alt="Profile" on:click={toggleOption}/>
-        {#if isOpen}
-            <Option />
-        {/if}
+        <button class="UploadButton" on:click={uploadRecipe}>레시피 등록</button>
     </div>
 </header>
-
-<main></main>
 
 <style>
     .Logo{
@@ -47,17 +39,23 @@
         flex-direction: row;
         justify-content: space-between;        
     }
-    
-    .ButtonSection{
-        margin-left: 10px;
-        margin-right: 15px;
-        position: relative;
+
+    .UploadButton {
+        background-color: rgb(38, 38, 38);
+        padding-left: 15px;
+        padding-right: 15px;
     }
 
-    .ButtonSection img{
-        height: 40px;
-        width: 40px;
-        cursor: pointer;
+    button {
+        margin: 0px;
+        border-radius: 10px;
+        color: white;
+        border: none;
+    }
+
+    .ButtonSection{
+        margin-left: 10px;
+        margin-right: 10px;
     }
 
     .Title {
