@@ -2,11 +2,12 @@
     let image = "/img/SequoiaLight.png";
     let exImg = "/img/slide3.png";
     import { user } from '../store';
+
     let formData = {
         uid:'',
         mid:'',
     }
-    
+
     function gotoMenu() {
         window.location.href='/gacha';
     }
@@ -22,7 +23,7 @@
                 headers:{
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(formData),
+                body: JSON.stringify(sessionStorage.getItem('idkey')),
                 credentials:'include',
             });
 
