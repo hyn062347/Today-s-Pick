@@ -1,12 +1,13 @@
 <script>
     let image = "/img/SequoiaLight.png";
     let exImg = "/img/slide3.png";
-    import { user } from "../store";
 
     let formData = {
         uid: "",
         mid: "",
     };
+
+    formData.uid = sessionStorage.getItem("idkey");
 
     let favoriteFoods;
     function gotoMenu() {
@@ -36,12 +37,10 @@
             }
 
             const result = await response.json();
-            user.set(result);
             favoriteFoods = result;
             console.log("서버 응답", result);
         } catch (error) {
             console.error(`데이터 전송 오류`, error);
-            user.set(null);
         }
     }
 
