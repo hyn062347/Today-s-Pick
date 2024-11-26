@@ -1,14 +1,11 @@
 <script>
     let image = "/img/SequoiaLight.png";
     let exImg = "/img/slide3.png";
-    import { user } from '../store';
+    
+    import { onMount } from "svelte";
+    let favorites = [];
+    let error = null;
 
-    let formData = {
-        uid:'',
-        mid:'',
-    }
-
-    formData.uid = sessionStorage.getItem("idkey");
 
     function gotoMenu() {
         window.location.href='/gacha';
@@ -18,31 +15,30 @@
         console.log("Delete");
     }
 
-    async function getFavorite() {
+    onMount(async () => {
+
         try{
-            const response = await fetch('http://localhost:8080/api/favorite/all',{
+            const uid = sessionStorage.getItem('idkey');
+            console.log('aaaa');
+            if(!uid){
+                throw Error('No login Info');
+            }
+            const response = await fetch('/api/favorite/all',{
                 method: 'POST',
                 headers:{
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(formData),
-                credentials:'include',
+                body: JSON.stringify({uid}),
             });
-
-            if(!response.ok){
-                throw new Error(`서버오류: ${response.status}`);
+            if(response.ok){
+                favorites = await response.json();
+            }else{
+                throw new Error("Data Load Fail");
             }
-
-            const result = await response.json();
-            user.set(result);
-            console.log('서버 응답', user);
-        }catch (error){
-            console.error(`데이터 전송 오류`, error);
-            user.set(null);
+        }catch (err){
+            error = err.message;
         }
-    }
-
-    getFavorite();
+    });
 </script>
 
 <main class="main">
