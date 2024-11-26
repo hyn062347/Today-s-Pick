@@ -55,7 +55,7 @@
             <li class="element">
                 <img src={image} alt="Image" />
                 <div class="stringBox">
-                    <span class="title">{food}</span>
+                    <span class="title">{favorite.mid}</span>
                     <div>
                         <span class="subtitle">Subtitle</span>
                         <span class="subtitle">Subtitle</span>
@@ -108,11 +108,15 @@
 
 <style>
     .main {
-        padding: 0;
+        padding: 0px 10%;
         display: flex;
         flex-direction: column;
         justify-content: center;
         user-select: none;
+    }
+
+    ul{
+        padding: 0px;
     }
 
     .element {
