@@ -1,12 +1,14 @@
 <script>
     import { navigate } from "svelte-routing";
+
     let uploadData = {
-        image: null,
-        title: '',
-        menu: '',
-        category: '',
-        ingredients: '',
-        recipe: '',
+        image: null,        // 이미지 파일
+        name: '',           // 메뉴 이름
+        title: '',          // 레시피 제목
+        category: '',       // 분류
+        ingredients: '',    // 재료
+        recipe: '',         // 요리 방법
+        uid: 'rang'      // 작성자 UID (임시 값)
     };
 
     async function handleUpload() {
@@ -16,33 +18,36 @@
         }
 
         const formData = new FormData();
-        formData.append("image", uploadData.image);
-        formData.append("title", uploadData.title);
-        formData.append("menu", uploadData.menu);
-        formData.append("category", uploadData.category);
-        formData.append("ingredients", uploadData.ingredients);
-        formData.append("recipe", uploadData.recipe);
+        formData.append("image", uploadData.image);       // 이미지 파일
+        formData.append("name", uploadData.name);         // 메뉴 이름
+        formData.append("recipeTitle", uploadData.title); // 레시피 제목
+        formData.append("category", uploadData.category); // 분류
+        formData.append("ingredients", uploadData.ingredients); // 재료
+        formData.append("instructions", uploadData.recipe);     // 요리 방법
+        formData.append("uid", uploadData.uid);           // UID
 
         try {
-            const response = await fetch('http://localhost:8080/api/upload', {
+            const response = await fetch('http://localhost:8080/api/recipes', {
                 method: 'POST',
                 body: formData
             });
 
+            // 서버 응답 상태 확인
             if (!response.ok) {
-                throw new Error(`서버 오류: ${response.status}`);
+                const errorMessage = await response.json();
+                throw new Error(`${response.status} - ${errorMessage.error}: ${errorMessage.details}`);
             }
 
+            // 성공적으로 JSON 응답 처리
             const result = await response.json();
-            console.log('업로드 성공', result);
-            alert("업로드 성공!");
+            console.log('업로드 성공:', result);
+            alert(result.message); // 성공 메시지 표시
+            navigate('/'); // 업로드 성공 후 메인 페이지로 이동
         } catch (error) {
             console.error('업로드 중 오류 발생', error);
-            alert("업로드 실패");
+            alert("업로드 실패: " + error.message);
         }
     }
-
-
 </script>
 
 <main class="setCenter">
@@ -62,8 +67,8 @@
             </div>
 
             <div class="form-container">
+                <input type="text" class="input" placeholder="메뉴" bind:value={uploadData.name} />
                 <input type="text" class="input" placeholder="제목" bind:value={uploadData.title} />
-                <input type="text" class="input" placeholder="메뉴" bind:value={uploadData.menu} />
                 <select class="input" bind:value={uploadData.category}>
                     <option value="" disabled selected>분류</option>
                     <option value="밥류">밥류</option>
@@ -77,7 +82,7 @@
 
             <div class="button-group">
                 <button type="button" class="cancel-btn" on:click={() => navigate("/")}>취소</button>
-                <button type="submit" class="submit-btn" on:click={() => handleUpload}>확인</button>
+                <button type="submit" class="submit-btn">확인</button>
             </div>
         </form>
     </div>
