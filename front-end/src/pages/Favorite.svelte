@@ -36,6 +36,7 @@
             }
 
             const result = await response.json();
+            user.set(result);
             favoriteFoods = result;
             console.log("서버 응답", result);
         } catch (error) {
@@ -53,7 +54,7 @@
     <ul>
         {#each favoriteFoods as food}
             <li class="element">
-                <img src={image} alt="Image"/>
+                <img src={image} alt="Image" />
                 <div class="stringBox">
                     <span class="title">{food}</span>
                     <div>
@@ -66,6 +67,7 @@
                     <span class="delete" on:click={deleteData}>삭제하기</span>
                 </div>
             </li>
+
         {/each}
     </ul>
 
