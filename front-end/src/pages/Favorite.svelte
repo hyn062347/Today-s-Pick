@@ -3,7 +3,12 @@
     let exImg = "/img/slide3.png";
     import { user } from '../store';
 
-    let uid = sessionStorage.getItem('idkey');
+    let formData = {
+        uid:'',
+        mid:'',
+    }
+
+    formData.uid = sessionStorage.getItem("idkey");
 
     function gotoMenu() {
         window.location.href='/gacha';
@@ -16,11 +21,11 @@
     async function getFavorite() {
         try{
             const response = await fetch('http://localhost:8080/api/favorite/all',{
-                method: 'GET',
+                method: 'POST',
                 headers:{
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(uid),
+                body: JSON.stringify(formData),
                 credentials:'include',
             });
 
