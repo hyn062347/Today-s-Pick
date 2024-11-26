@@ -50,6 +50,11 @@
 
 
 
+    <ul>
+        {#each foods as food}
+            <li>{food}  ...<a href="{link1}{food}">레시피 보기</a> ...<a href="{link2}{food}">식당 찾기</a></li>
+        {/each}
+    </ul>
     <div class="element">
         <img src={image} alt="Image" />
         <div class="stringBox">
