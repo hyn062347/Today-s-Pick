@@ -51,7 +51,7 @@
     <h1>Favorite</h1>
 
     <ul>
-        {#each favoriteFoods as favorite (favorite.mid)}
+        {#each favoriteFoods as favorite}
             <li class="element">
                 <img src={image} alt="Image" />
                 <div class="stringBox">
@@ -69,41 +69,6 @@
 
         {/each}
     </ul>
-
-    <!-- -------------------------------진짜 작동하는 부분----------------------------- -->
-    <div class="element">
-        <img src={image} alt="Image" />
-        <div class="stringBox">
-            <span class="title">Title</span>
-            <div>
-                <span class="subtitle">Subtitle</span>
-                <span class="subtitle">Subtitle</span>
-            </div>
-        </div>
-        <div class="contentBox">
-            <span class="goto" on:click={gotoMenu}>바로가기</span>
-            <span class="delete" on:click={deleteData}>삭제하기</span>
-        </div>
-    </div>
-    <!-- --------------형식으로 만들면 됨--------------- -->
-
-    <!-- --------------테스트용--------------- -->
-    <div class="element">
-        <img src={exImg} alt="Image" />
-        <div class="stringBox">
-            <span class="title">고기고기고기고기</span>
-            <div>
-                <span class="subtitle">전체</span> -
-                <span class="subtitle">한식</span> -
-                <span class="subtitle">육류</span>
-            </div>
-        </div>
-        <div class="contentBox">
-            <span class="goto" on:click={gotoMenu}>바로가기</span>
-            <span class="delete" on:click={deleteData}>삭제하기</span>
-        </div>
-    </div>
-    <!-- --------------테스트용--------------- -->
 </main>
 
 <style>
