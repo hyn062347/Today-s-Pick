@@ -52,6 +52,7 @@ public class AccountsController {
         
         SignInDto dto=new SignInDto();
         dto.setUid(account.getUid());
+        System.out.println(dto);
         return ResponseEntity.ok().body(dto);
     }
     

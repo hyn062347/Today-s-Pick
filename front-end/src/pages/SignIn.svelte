@@ -24,7 +24,7 @@
             const result = await response.json();
             user.set(result);
             sessionStorage.setItem("idkey",result.uid);
-            console.log('서버 응답', user);
+            console.log('서버 응답', result);
             window.location.href='/';
         }catch (error){
             console.error(`데이터 전송 오류`, error);

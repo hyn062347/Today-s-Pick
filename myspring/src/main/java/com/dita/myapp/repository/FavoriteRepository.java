@@ -17,4 +17,5 @@ public interface FavoriteRepository extends CrudRepository<Favorite, FavoriteId>
     @Query(value = "select * from Favorite where uid=?1",nativeQuery = true)
     public List<Favorite> findByUidToFavorite(String uid);
     
+
 }
