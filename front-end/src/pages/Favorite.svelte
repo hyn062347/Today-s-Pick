@@ -1,7 +1,12 @@
 <script>
     let image = "/img/SequoiaLight.png";
     let exImg = "/img/slide3.png";
-
+    import { user } from '../store';
+    let formData = {
+        uid:'',
+        mid:'',
+    }
+    
     function gotoMenu() {
         window.location.href='/gacha';
     }
@@ -9,6 +14,32 @@
     function deleteData() {
         console.log("Delete");
     }
+
+    async function getFavorite() {
+        try{
+            const response = await fetch('http://localhost:8080/api/favorite/all',{
+                method: 'GET',
+                headers:{
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData),
+                credentials:'include',
+            });
+
+            if(!response.ok){
+                throw new Error(`서버오류: ${response.status}`);
+            }
+
+            const result = await response.json();
+            user.set(result);
+            console.log('서버 응답', user);
+        }catch (error){
+            console.error(`데이터 전송 오류`, error);
+            user.set(null);
+        }
+    }
+
+    getFavorite();
 </script>
 
 <main class="main">
