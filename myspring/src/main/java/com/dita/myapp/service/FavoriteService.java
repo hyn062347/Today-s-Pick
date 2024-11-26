@@ -1,5 +1,7 @@
 package com.dita.myapp.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.dita.myapp.domain.Favorite;
@@ -13,8 +15,14 @@ import lombok.RequiredArgsConstructor;
 public class FavoriteService {
     private final FavoriteRepository favoriteRepository;
 
-    public int getFavorite(FavoriteDto favoriteDto){
-        Favorite favorite = new Favorite();
-        favorite.getMid()
+    public List<Favorite> getFavorite(FavoriteDto favoriteDto){
+        List<Favorite> list;
+        try {
+            list=favoriteRepository.findByUidToFavorite(favoriteDto.getUid());
+        } catch (Exception e) {
+            throw e;
+        }
+
+        return list;
     }
 }
