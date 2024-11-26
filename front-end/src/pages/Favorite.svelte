@@ -3,10 +3,7 @@
     let exImg = "/img/slide3.png";
     import { user } from '../store';
 
-    let formData = {
-        uid:'',
-        mid:'',
-    }
+    let uid = sessionStorage.getItem('idkey');
 
     function gotoMenu() {
         window.location.href='/gacha';
@@ -23,7 +20,7 @@
                 headers:{
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(sessionStorage.getItem('idkey')),
+                body: JSON.stringify(uid),
                 credentials:'include',
             });
 
