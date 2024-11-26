@@ -1,17 +1,16 @@
 <script>
     let image = "/img/SequoiaLight.png";
     let exImg = "/img/slide3.png";
-    import { user } from '../store';
+    import { user } from "../store";
 
     let formData = {
-        uid:'',
-        mid:'',
-    }
+        uid: "",
+        mid: "",
+    };
 
-    formData.uid = sessionStorage.getItem("idkey");
-
+    let favoriteFoods;
     function gotoMenu() {
-        window.location.href='/gacha';
+        window.location.href = "/gacha";
     }
 
     function deleteData() {
@@ -19,24 +18,27 @@
     }
 
     async function getFavorite() {
-        try{
-            const response = await fetch('http://localhost:8080/api/favorite/all',{
-                method: 'POST',
-                headers:{
-                    'Content-Type': 'application/json'
+        try {
+            const response = await fetch(
+                "http://localhost:8080/api/favorite/all",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(formData),
+                    credentials: "include",
                 },
-                body: JSON.stringify(formData),
-                credentials:'include',
-            });
+            );
 
-            if(!response.ok){
+            if (!response.ok) {
                 throw new Error(`서버오류: ${response.status}`);
             }
 
             const result = await response.json();
-            user.set(result);
-            console.log('서버 응답', result);
-        }catch (error){
+            favoriteFoods = result;
+            console.log("서버 응답", result);
+        } catch (error) {
             console.error(`데이터 전송 오류`, error);
             user.set(null);
         }
@@ -48,13 +50,25 @@
 <main class="main">
     <h1>Favorite</h1>
 
-
-
     <ul>
-        {#each foods as food}
-            <li>{food}  ...<a href="{link1}{food}">레시피 보기</a> ...<a href="{link2}{food}">식당 찾기</a></li>
+        {#each favoriteFoods as food}
+            <li class="element">
+                <img src={image} alt="Image"/>
+                <div class="stringBox">
+                    <span class="title">{food}</span>
+                    <div>
+                        <span class="subtitle">Subtitle</span>
+                        <span class="subtitle">Subtitle</span>
+                    </div>
+                </div>
+                <div class="contentBox">
+                    <span class="goto" on:click={gotoMenu}>바로가기</span>
+                    <span class="delete" on:click={deleteData}>삭제하기</span>
+                </div>
+            </li>
         {/each}
     </ul>
+
     <div class="element">
         <img src={image} alt="Image" />
         <div class="stringBox">
@@ -141,7 +155,7 @@
 
     .stringBox .subtitle {
         font-size: 16px;
-        font-family: 'Inter';
+        font-family: "Inter";
     }
 
     .contentBox {
