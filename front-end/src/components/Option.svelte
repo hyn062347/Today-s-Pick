@@ -10,7 +10,7 @@
     <li><a href="/mypage">마이페이지</a></li>
     <li><a href="/myrecipe">내 레시피</a></li>
     <li><a href="/history">히스토리</a></li>
-    <li><button on:click={() => logout}>로그아웃</button></li>
+    <li><button on:click={logout}>로그아웃</button></li>
 </ul>
 
 
