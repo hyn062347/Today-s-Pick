@@ -9,7 +9,7 @@
 
     formData.uid = sessionStorage.getItem("idkey");
 
-    let favoriteFoods;
+    let favoriteFoods = [];
     function gotoMenu() {
         window.location.href = "/gacha";
     }
@@ -51,7 +51,7 @@
     <h1>Favorite</h1>
 
     <ul>
-        {#each favoriteFoods as food}
+        {#each favoriteFoods as favorite (favorite.mid)}
             <li class="element">
                 <img src={image} alt="Image" />
                 <div class="stringBox">
@@ -70,6 +70,7 @@
         {/each}
     </ul>
 
+    <!-- -------------------------------진짜 작동하는 부분----------------------------- -->
     <div class="element">
         <img src={image} alt="Image" />
         <div class="stringBox">
