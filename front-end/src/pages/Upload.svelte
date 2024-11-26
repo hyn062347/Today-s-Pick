@@ -67,10 +67,10 @@
             </div>
 
             <div class="form-container">
-                <input type="text" class="input" placeholder="메뉴" bind:value={uploadData.name} />
-                <input type="text" class="input" placeholder="제목" bind:value={uploadData.title} />
+                <input type="text" class="input" placeholder="레시피 제목" bind:value={uploadData.title} />
+                <input type="text" class="input" placeholder="메뉴 이름" bind:value={uploadData.name} />
                 <select class="input" bind:value={uploadData.category}>
-                    <option value="" disabled selected>분류</option>
+                    <option value="" disabled selected>카테고리</option>
                     <option value="밥류">밥류</option>
                     <option value="면류">면류</option>
                     <option value="국/찌개">국/찌개</option>
