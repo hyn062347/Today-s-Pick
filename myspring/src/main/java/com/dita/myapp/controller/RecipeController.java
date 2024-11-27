@@ -29,7 +29,6 @@ public class RecipeController {
      * 레시피 등록 API
      *
      * @param file         업로드할 이미지 파일
-     * @param name         메뉴 이름
      * @param recipeTitle  레시피 제목
      * @param category     분류
      * @param ingredients  재료 리스트
@@ -61,7 +60,6 @@ public class RecipeController {
             // DTO 생성
             RecipeDTO recipeDTO = RecipeDTO.builder()
                     .uid(uid)
-                    .name(name)
                     .fileSrc(folder)
                     .fileName(fileName)
                     .recipeTitle(recipeTitle)
@@ -72,7 +70,6 @@ public class RecipeController {
             // DTO -> Entity 변환 및 데이터 저장
             Recipe recipe = Recipe.builder()
                     .uid(recipeDTO.getUid())
-                    .name(recipeDTO.getName())
                     .fileSrc(recipeDTO.getFileSrc())
                     .fileName(recipeDTO.getFileName())
                     .recipeTitle(recipeDTO.getRecipeTitle())

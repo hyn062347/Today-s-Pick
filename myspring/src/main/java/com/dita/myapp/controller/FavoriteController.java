@@ -1,6 +1,7 @@
 package com.dita.myapp.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -33,25 +34,26 @@ public class FavoriteController {
 
     @PostMapping("/all")
     public ResponseEntity<?> getFavoriteAll(@RequestBody FavoriteDto favoriteDto) {
-        List<Favorite> list;
+        List<Object[]> list;
         try{
             list=favoriteService.getFavorite(favoriteDto.getUid());
         }catch(Exception e){
             return ResponseEntity.ok().body(false);
         }
-        System.out.println("this is log!!!!!!!!!!!!!!!!!!!!!!!!"+list);
 
         ArrayList<FavoriteDto> fdto=new ArrayList<FavoriteDto>();
-        for (Favorite f : list) {
-            FavoriteDto ff=new FavoriteDto();
-            ff.setUid(f.getUid());
-            ff.setMid(f.getMid());
-            ff.setAdded_at(f.getAdded_at());
+        for (Object[] objects : list) {
+            System.out.println("this is log!!!!!!!!!!!!!"+objects[0]);
+            FavoriteDto f=new FavoriteDto();
+            f.setUid(objects[0].toString());
+            f.setMid(Long.parseLong(objects[1].toString()));
+            f.setAdded_at(java.sql.Timestamp.valueOf(objects[2].toString()));
+            f.setMname(objects[3].toString());
+            f.setCtg(objects[4].toString());
 
-            fdto.add(ff);
+            fdto.add(f);
         }
-
-        System.out.println(fdto);
+        
         return ResponseEntity.ok().body(fdto);
     }
     

@@ -11,4 +11,6 @@ public class FavoriteDto {
     private String uid;
     private Long mid;
     private Timestamp added_at;
+    private String mname;
+    private String ctg;
 }

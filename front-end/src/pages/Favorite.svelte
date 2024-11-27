@@ -55,10 +55,10 @@
             <li class="element">
                 <img src={image} alt="Image" />
                 <div class="stringBox">
-                    <span class="title">{favorite.mid}</span>
+                    <span class="title">{favorite.mname}</span>
                     <div>
-                        <span class="subtitle">Subtitle</span>
-                        <span class="subtitle">Subtitle</span>
+                        <span class="subtitle">{favorite.ctg}</span>
+                        <span class="subtitle"></span>
                     </div>
                 </div>
                 <div class="contentBox">

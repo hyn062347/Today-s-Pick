@@ -14,8 +14,8 @@ public interface FavoriteRepository extends CrudRepository<Favorite, FavoriteId>
     @Query(value = "select count(*) from Favorite where uid=?1 and mid=?2",nativeQuery = true)
     public void findByFavorite(String uid,int mid);
 
-    @Query(value = "select * from Favorite where uid=?1",nativeQuery = true)
-    public List<Favorite> findByUidToFavorite(String uid);
+    @Query(value = "SELECT favorite.uid, favorite.mid, favorite.added_at, menu.mname, menu.ctg FROM favorite JOIN menu ON favorite.mid = menu.mid WHERE favorite.uid = ?1",nativeQuery = true)
+    public List<Object[]> findByUidToFavorite(String uid);
     
 
 }

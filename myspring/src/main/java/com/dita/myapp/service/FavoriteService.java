@@ -18,10 +18,11 @@ import lombok.extern.java.Log;
 public class FavoriteService {
     private final FavoriteRepository favoriteRepository;
 
-    public List<Favorite> getFavorite(String uid){
-        List<Favorite> list;
+    public List<Object[]> getFavorite(String uid){
+        List<Object[]> list;
         try {
             list=favoriteRepository.findByUidToFavorite(uid);
+            //System.out.println(list);
         } catch (Exception e) {
             throw e;
         }
