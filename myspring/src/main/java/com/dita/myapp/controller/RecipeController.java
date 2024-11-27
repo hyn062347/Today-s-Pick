@@ -60,9 +60,9 @@ public class RecipeController {
             // DTO 생성
             RecipeDTO recipeDTO = RecipeDTO.builder()
                     .uid(uid)
-                    .fileSrc(folder)
-                    .fileName(fileName)
-                    .recipeTitle(recipeTitle)
+                    .rimg_src(folder)
+                    .rimg_name(fileName)
+                    .recipe_title(recipeTitle)
                     .ingredients(ingredients)
                     .instructions(instructions)
                     .build();
@@ -70,9 +70,9 @@ public class RecipeController {
             // DTO -> Entity 변환 및 데이터 저장
             Recipe recipe = Recipe.builder()
                     .uid(recipeDTO.getUid())
-                    .fileSrc(recipeDTO.getFileSrc())
-                    .fileName(recipeDTO.getFileName())
-                    .recipeTitle(recipeDTO.getRecipeTitle())
+                    .rimg_src(recipeDTO.getRimg_src())
+                    .rimg_name(recipeDTO.getRimg_name())
+                    .recipe_title(recipeDTO.getRecipe_title())
                     .ingredients(recipeDTO.getIngredients())
                     .instructions(recipeDTO.getInstructions())
                     .build();

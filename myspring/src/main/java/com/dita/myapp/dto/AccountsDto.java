@@ -10,4 +10,7 @@ public class AccountsDto {
     private String password;
     private String uname;
     private String email;
+    private String uimg_src;
+    private String uimg_name;
+
 }

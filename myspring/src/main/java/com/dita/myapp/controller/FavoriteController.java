@@ -45,7 +45,7 @@ public class FavoriteController {
         for (Object[] objects : list) {
             FavoriteDto f=new FavoriteDto();
             f.setUid(objects[0].toString());
-            f.setMid(Long.parseLong(objects[1].toString()));
+            f.setRid(Long.parseLong(objects[1].toString()));
             f.setAdded_at(java.sql.Timestamp.valueOf(objects[2].toString()));
             f.setMname(objects[3].toString());
             f.setCtg(objects[4].toString());
