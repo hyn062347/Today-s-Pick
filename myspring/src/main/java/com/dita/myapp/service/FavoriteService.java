@@ -22,7 +22,6 @@ public class FavoriteService {
         List<Object[]> list;
         try {
             list=favoriteRepository.findByUidToFavorite(uid);
-            //System.out.println(list);
         } catch (Exception e) {
             throw e;
         }
