@@ -53,7 +53,7 @@
     <ul>
         {#each favoriteFoods as favorite}
             <li class="element">
-                <img src={image} alt="Image" />
+                <img src="{favorite.rimg_src}/{favorite.rimg_name}" alt="Image" />
                 <div class="stringBox">
                     <span class="title">{favorite.recipe_title}</span>
                     <div>
