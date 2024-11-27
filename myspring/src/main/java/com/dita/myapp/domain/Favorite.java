@@ -25,8 +25,6 @@ public class Favorite{
     @Id
     private Long rid;
 
-    @CurrentTimestamp
-    @UpdateTimestamp
     private Timestamp added_at;
 
 
