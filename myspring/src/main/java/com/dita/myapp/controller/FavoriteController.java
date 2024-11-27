@@ -43,7 +43,6 @@ public class FavoriteController {
 
         ArrayList<FavoriteDto> fdto=new ArrayList<FavoriteDto>();
         for (Object[] objects : list) {
-            System.out.println("this is log!!!!!!!!!!!!!"+objects[0]);
             FavoriteDto f=new FavoriteDto();
             f.setUid(objects[0].toString());
             f.setMid(Long.parseLong(objects[1].toString()));
