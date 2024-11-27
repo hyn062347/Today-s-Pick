@@ -1,20 +1,35 @@
 <script>
-    let image = "/img/SequoiaLight.png";
+    let userData = {        // 유저 프로필 (임시)
+        image: 'https://via.placeholder.com/100',  // 프로필 이미지
+        uid: 'rang',        // 아이디 
+        password: '123',    // 비밀번호
+        email: 'rang@gmail.com',      // 이메일
+        uname: '고해랑',       // 닉네임
+        favorite1: '',      // 선호음식1
+        favorite2: '',      // 선호음식2
+    };
 </script>
 
 <main class="setCenter">
     <div class="form-box">
-        <form class="form">
-            <span class="title">Profile</span>
-            <img src={image} alt="Image" class="profileImage"/>
-            <input type="text" class="input name" placeholder="Name"/>
+        <form class="form" on:submit|preventDefault={() => console.log(userData)}>
+            <span class="title">프로필</span>
+            <div>
+                {#if userData.image}
+                    <img src={userData.image} alt="Image" class="profileImage"/>
+                {:else}
+                    <span>이미지 첨부</span>
+                {/if}
+            </div>
+            
+            <input type="text" class="input name" bind:value={userData.uname} placeholder="Name"/>
             <div class="form-container">
-                <input type="ID" class="input" placeholder="ID" />
-                <input type="password" class="input" placeholder="Password" />
+                <input type="ID" class="input" bind:value={userData.uid} placeholder="ID" />
+                <input type="password" class="input" bind:value={userData.password} placeholder="Password" />
                 <input type="password" class="input" placeholder="Password Confirm"/>
-                <input type="email" class="input" placeholder="Email"/>
-                <input type="text" class="input last" placeholder="Favorite1"/>
-                <input type="text" class="input last" placeholder="Favorite1"/>
+                <input type="email" class="input" bind:value={userData.email} placeholder="Email"/>
+                <input type="text" class="input last" bind:value={userData.favorite1} placeholder="Favorite1"/>
+                <input type="text" class="input last" bind:value={userData.favorite2} placeholder="Favorite2"/>
             </div>
             <div>
                 <button type="reset">Cancel</button>
@@ -33,10 +48,11 @@
     }
 
     .profileImage{
-    border-radius: 50%;
-    height: 100px;
-    width: 100px;
-    margin-bottom: 10px;
+        border-radius: 50%;
+        height: 100px;
+        width: 100px;
+        margin-bottom: 10px;
+        cursor: pointer;
     }
 
     .form-box {
