@@ -14,5 +14,5 @@ import lombok.NoArgsConstructor;
 public class FavoriteId implements Serializable {
     
     private String uid;
-    private Long mid;
+    private Long rid;
 }

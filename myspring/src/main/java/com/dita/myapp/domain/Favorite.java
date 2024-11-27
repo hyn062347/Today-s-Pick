@@ -22,7 +22,7 @@ public class Favorite{
     private String uid;
 
     @Id
-    private Long mid;
+    private Long rid;
 
     @CurrentTimestamp
     private Timestamp added_at;
