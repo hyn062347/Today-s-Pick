@@ -4,7 +4,7 @@
 
     let formData = {
         uid: "",
-        mid: "",
+        rid: "",
     };
 
     formData.uid = sessionStorage.getItem("idkey");
@@ -14,8 +14,31 @@
         window.location.href = "/gacha";
     }
 
-    function deleteData() {
-        console.log("Delete");
+    async function deleteData(rid) {
+        formData.rid=rid;
+        formData.uid=sessionStorage.getItem("idkey");
+        try {
+            const response = await fetch(
+                "http://localhost:8080/api/favorite/delete",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(formData),
+                    credentials: "include",
+                },
+            );
+
+            if (!response.ok) {
+                throw new Error(`서버오류: ${response.status}`);
+            }
+
+            const result = await response.json();
+            console.log("서버 응답", result);
+        } catch (error) {
+            console.error(`데이터 전송 오류`, error);
+        }
     }
 
     async function getFavorite() {
@@ -53,7 +76,7 @@
     <ul>
         {#each favoriteFoods as favorite}
             <li class="element">
-                <img src="{favorite.rimg_src}/{favorite.rimg_name}" alt="Image" />
+                <img src="{favorite.rimg_src}{favorite.rimg_name}" alt="Image" />
                 <div class="stringBox">
                     <span class="title">{favorite.recipe_title}</span>
                     <div>
@@ -63,7 +86,7 @@
                 </div>
                 <div class="contentBox">
                     <span class="goto" on:click={gotoMenu}>바로가기</span>
-                    <span class="delete" on:click={deleteData}>삭제하기</span>
+                    <span class="delete" on:click={deleteData(favorite.rid)}>삭제하기</span>
                 </div>
             </li>
 

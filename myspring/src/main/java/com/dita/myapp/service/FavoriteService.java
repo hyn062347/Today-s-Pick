@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.dita.myapp.domain.Favorite;
+import com.dita.myapp.domain.FavoriteId;
 import com.dita.myapp.dto.FavoriteDto;
 import com.dita.myapp.repository.FavoriteRepository;
 
@@ -43,6 +44,24 @@ public class FavoriteService {
         }
 
         return fdto;
+    }
+
+    public boolean deleteFavoriteOne(String uid,Long rid){
+        int i;
+        boolean result=false;
+        System.out.println(uid+"     log      "+rid);
+        try {
+            i=favoriteRepository.findByFavorite(uid, rid);
+            if(i>=1){
+                favoriteRepository.deleteById(new FavoriteId(uid,rid));
+                result=true;
+            }
+            
+        } catch (Exception e) {
+            throw e;
+        }
+        
+        return result;
     }
 
 }

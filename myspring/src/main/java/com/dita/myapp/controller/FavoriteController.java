@@ -43,5 +43,17 @@ public class FavoriteController {
         
         return ResponseEntity.ok().body(list);
     }
+
+    @PostMapping("/delete")
+    public ResponseEntity<?> deleteOne(@RequestBody FavoriteDto favoriteDto) {
+        boolean b;
+        try{
+            b=favoriteService.deleteFavoriteOne(favoriteDto.getUid(),favoriteDto.getRid());
+        }catch(Exception e){
+            return ResponseEntity.ok().body(false);
+        }
+        
+        return ResponseEntity.ok().body(b);
+    }
     
 }

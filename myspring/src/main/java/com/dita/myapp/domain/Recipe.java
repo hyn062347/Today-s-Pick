@@ -1,5 +1,9 @@
 package com.dita.myapp.domain;
 
+
+
+import java.sql.Timestamp;
+
 import org.hibernate.annotations.CurrentTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -8,8 +12,6 @@ import lombok.*;
 
 @Entity
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Builder
 public class Recipe {
 
@@ -30,6 +32,5 @@ public class Recipe {
 
     private String instructions; // 요리 방법
 
-    @CurrentTimestamp
-    private String edited_at; // 수정 시간
+    private Timestamp edited_at; // 수정 시간
 }

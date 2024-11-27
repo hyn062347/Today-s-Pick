@@ -24,7 +24,6 @@ public class Accounts{
     private String uimg_src;
     private String uimg_name;
 
-    @CurrentTimestamp
     private Timestamp created_at;
 
     
