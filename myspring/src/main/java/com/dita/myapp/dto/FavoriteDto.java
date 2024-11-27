@@ -9,8 +9,10 @@ import lombok.Setter;
 public class FavoriteDto {
     
     private String uid;
-    private Long mid;
+    private Long rid;
     private Timestamp added_at;
     private String mname;
     private String ctg;
+    private String rimg_src;
+    private String rimg_name;
 }
