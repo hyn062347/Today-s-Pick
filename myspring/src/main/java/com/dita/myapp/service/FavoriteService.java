@@ -1,5 +1,6 @@
 package com.dita.myapp.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -18,7 +19,7 @@ import lombok.extern.java.Log;
 public class FavoriteService {
     private final FavoriteRepository favoriteRepository;
 
-    public List<Object[]> getFavorite(String uid){
+    public ArrayList<FavoriteDto> getFavorite(String uid){
         List<Object[]> list;
         try {
             list=favoriteRepository.findByUidToFavorite(uid);
@@ -26,7 +27,22 @@ public class FavoriteService {
             throw e;
         }
         
-        return list;
+        ArrayList<FavoriteDto> fdto=new ArrayList<FavoriteDto>();
+        for (Object[] objects : list) {
+            FavoriteDto f=new FavoriteDto();
+            f.setUid(uid);
+            f.setRid(Long.parseLong(objects[0].toString()));
+            f.setRimg_src(objects[1].toString());
+            f.setRimg_name(objects[2].toString());
+            f.setRecipe_title(objects[3].toString());
+            f.setMname(objects[4].toString());
+            f.setCtg(objects[5].toString());
+            f.setAdded_at(java.sql.Timestamp.valueOf(objects[6].toString()));
+
+            fdto.add(f);
+        }
+
+        return fdto;
     }
 
 }

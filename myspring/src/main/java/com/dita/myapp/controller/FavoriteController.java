@@ -34,26 +34,14 @@ public class FavoriteController {
 
     @PostMapping("/all")
     public ResponseEntity<?> getFavoriteAll(@RequestBody FavoriteDto favoriteDto) {
-        List<Object[]> list;
+        ArrayList<FavoriteDto> list=new ArrayList<>();
         try{
             list=favoriteService.getFavorite(favoriteDto.getUid());
         }catch(Exception e){
             return ResponseEntity.ok().body(false);
         }
-
-        ArrayList<FavoriteDto> fdto=new ArrayList<FavoriteDto>();
-        for (Object[] objects : list) {
-            FavoriteDto f=new FavoriteDto();
-            f.setUid(objects[0].toString());
-            f.setRid(Long.parseLong(objects[1].toString()));
-            f.setAdded_at(java.sql.Timestamp.valueOf(objects[2].toString()));
-            f.setMname(objects[3].toString());
-            f.setCtg(objects[4].toString());
-
-            fdto.add(f);
-        }
         
-        return ResponseEntity.ok().body(fdto);
+        return ResponseEntity.ok().body(list);
     }
     
 }
