@@ -2,8 +2,9 @@
     let meal = "음료"; // 음료, 간식, 식사
     let category = "전체"; // 전체, 밥류, 면류, 육류, 튀김류 등
     let selectedMenu = null; // 가챠로 선택된 메뉴
+    let photoUrl = ""; // Flickr에서 가져온 사진 URL
+    const apiKey = "ee561aac775d80987baa6fa0ce000255"; // Flickr API Key
 
-    // 상위 카테고리별 서브 카테고리 데이터
     const subCategories = {
         음료: ["전체", "음료 및 차류", "유제품류 및 빙과류"],
         간식: ["전체", "빵 및 과자류", "젓갈류", "장아찌·절임류"],
@@ -13,29 +14,23 @@
 
     let visibleSubCategories = subCategories["음료"]; // 초기값
 
-    // 임시 데이터 (DB 연동 예정)
     let menus = [
-        { name: "치킨", meal: "식사", category: "구이류", image: "/img/slide1.png" },
+        { name: "후라이드치킨", meal: "식사", category: "구이류", image: "/img/slide1.png" },
         { name: "스파게티", meal: "식사", category: "튀김류", image: "/img/slide2.png" },
         { name: "초밥", meal: "식사", category: "밥류", image: "/img/slide3.png" },
     ];
 
-    // 상위 카테고리 클릭 이벤트
     function selectMainCategory(category) {
         meal = category;
         visibleSubCategories = subCategories[category];
         category = "전체"; // 서브 카테고리 초기화
-        updateSubCategoryUI();
     }
 
-    // 하위 카테고리 선택
     function selectSubCategory(subCategoryName) {
         category = subCategoryName;
-        updateActiveStates();
     }
 
-    // 메뉴 랜덤 뽑기
-    function pickRandomMenu() {
+    async function pickRandomMenu() {
         const filteredMenus = menus.filter(
             (menu) =>
                 (meal === "전체" || menu.meal === meal) &&
@@ -44,38 +39,33 @@
 
         if (filteredMenus.length > 0) {
             selectedMenu = filteredMenus[Math.floor(Math.random() * filteredMenus.length)];
+            const searchKeyword = selectedMenu.name.split("_")[0]; // '_' 뒤 단어 제외
+            await fetchPhoto(searchKeyword); // Flickr API로 사진 검색
         } else {
             alert("조건에 맞는 메뉴가 없습니다. 다시 선택해주세요.");
         }
     }
 
-    // 하위 카테고리 UI 업데이트
-    function updateSubCategoryUI() {
-        const subCategoryElements = document.querySelectorAll(".sub-category span");
-        subCategoryElements.forEach((el) => {
-            const categoryName = el.textContent;
-            if (visibleSubCategories.includes(categoryName)) {
-                el.style.display = "inline-block"; // 표시
-            } else {
-                el.style.display = "none"; // 숨김
-            }
-        });
-        updateActiveStates();
+    async function fetchPhoto(keyword) {
+    try {
+        const response = await fetch(
+        `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&text=${encodeURIComponent(keyword)}&sort=interestingness-desc&content_type=1&per_page=1&format=json&nojsoncallback=1`
+        );
+
+        const data = await response.json();
+        if (data.photos.photo.length > 0) {
+            const photo = data.photos.photo[0];
+            photoUrl = `https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_z.jpg`;
+        } else {
+            photoUrl = ""; // 사진이 없으면 기본 이미지
+        }
+    } catch (error) {
+        console.error("Flickr API 오류:", error);
+        photoUrl = ""; // 에러 발생 시 기본 이미지
     }
+}
 
-    // 선택된 상태 업데이트
-    function updateActiveStates() {
-        document.querySelectorAll(".sub-category span").forEach((el) => {
-            el.classList.toggle("active", el.textContent === category);
-        });
-    }
 
-    // 페이지 로드 시 초기화
-    window.onload = () => {
-        updateSubCategoryUI();
-    };
-
-    // 식당 찾기
     function findMenu() {
         if (!selectedMenu) {
             alert("메뉴가 선택되지 않았습니다. 메뉴를 먼저 뽑아주세요.");
@@ -83,12 +73,11 @@
         }
 
         const link = `https://map.naver.com/p/search/${encodeURIComponent(selectedMenu.name)}`;
-        window.open(link, "_blank"); // 새 탭에서 열기
+        window.open(link, "_blank");
     }
-
-        //레시피 찾기
     function findRecipe() {
         window.location.href='/recipe';
+        window.open(link, "_blank");
     }
 </script>
 
@@ -96,16 +85,13 @@
     <div class="gacha">
         <div class="img-container">
             {#if selectedMenu}
-                <!-- 가챠 후: 메뉴 이미지와 이름 표시 -->
-                <img src={selectedMenu.image} alt={selectedMenu.name} class="menu-image"/>
+                <img src={photoUrl} alt={selectedMenu.name} class="menu-image" />
             {:else}
-                <!-- 가차 전 : 메뉴 이미지 없음-->
                 <span class="placeholder-text">메뉴를 선택해주세요!</span>
             {/if}
         </div>
 
         <div class="options">
-            <!-- 상위 카테고리 -->
             <div class="option">
                 <span class:active={meal === "음료"} on:click={() => selectMainCategory("음료")}>음료</span>
                 <span class:active={meal === "간식"} on:click={() => selectMainCategory("간식")}>간식</span>
@@ -113,24 +99,22 @@
                 <span class:active={meal === "기타"} on:click={() => selectMainCategory("기타")}>기타</span>
             </div>
 
-            <!-- 하위 카테고리 -->
             <div class="option last sub-category">
                 {#each visibleSubCategories as subCategoryName}
                     <span class:active={category === subCategoryName} on:click={() => selectSubCategory(subCategoryName)}>{subCategoryName}</span>
                 {/each}
             </div>
         </div>
-        
+
         {#if !selectedMenu}
-            <div>
-                <button class="action-button" on:click={pickRandomMenu}>메뉴 뽑기</button>
-            </div>
+            <h2>대기중</h2>
+            <button class="action-button" on:click={pickRandomMenu}>메뉴 뽑기</button>
         {:else}
+            <h2>{selectedMenu.name}</h2>
             <div>
-                <h2>{selectedMenu.name}</h2>
-                <button class="action-button" on:click={pickRandomMenu}>다시 뽑기</button>
-                <button class="action-button yellow" on:click={findMenu}>식당 찾기</button>
-                <button class="action-button orange" on:click={findRecipe}>레시피 찾기</button>
+            <button class="action-button" on:click={pickRandomMenu}>다시 뽑기</button>
+            <button class="action-button yellow" on:click={findMenu}>식당 찾기</button>
+            <button class="action-button orange" on:click={findRecipe}>레시피 찾기</button>
             </div>
         {/if}
     </div>
