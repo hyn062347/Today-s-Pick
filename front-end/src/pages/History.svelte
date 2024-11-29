@@ -5,26 +5,68 @@
         console.log("Delete");
     }
     function navigateToGacha() {
-        window.location.href = '/gacha';
+        window.location.href = "/gacha";
     }
+
+    //이거 고쳐야됨 History.java 만들어주셈
+    let formData = {
+        uid: "",
+        mid: "",
+        mname: "",
+    };
+
+    formData.uid = sessionStorage.getItem("idkey");
+
+    let HistoryFood = [];
+
+    async function getHistory() {
+        try {
+            const response = await fetch(
+                "http://localhost:8080/api/history/all",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(formData),
+                    credentials: "include",
+                },
+            );
+
+            if (!response.ok) {
+                throw new Error(`서버오류: ${response.status}`);
+            }
+
+            const result = await response.json();
+            HistoryFood = result;
+            console.log("서버 응답", result);
+        } catch (error) {
+            console.error(`데이터 전송 오류`, error);
+        }
+    }
+
+    getHistory();
 </script>
 
 <main class="main">
     <h1>History</h1>
 
-    <div class="element">
-        <img src={image} alt="Image" />
-        <div class="stringBox">
-            <span class="title">Title</span>
-            <div>
-                <span class="subtitle">Subtitle</span>
-                <span class="subtitle">Subtitle</span>
+    {#each HistoryFood as history}
+        <div class="element">
+            <img src={image} alt="Image" />
+            <div class="stringBox">
+                <span class="title">{history.name}</span>
+                <div>
+                    <span class="subtitle">Subtitle</span>
+                    <span class="subtitle">Subtitle</span>
+                </div>
+            </div>
+            <div class="contentBox">
+                <span class="delete" on:click={() => deleteData()}>Delete</span>
             </div>
         </div>
-        <div class="contentBox">
-            <span class="delete" on:click={() => deleteData()}>Delete</span>
-        </div>
-    </div>
+    {/each}
+
     <!-- --------------형식으로 만들면 됨--------------- -->
 
     <!-- --------------테스트용--------------- -->
@@ -74,7 +116,7 @@
     }
 
     .element .direct {
-        font-size:  20px;
+        font-size: 20px;
         color: #333;
     }
 
@@ -97,7 +139,7 @@
 
     .stringBox .subtitle {
         font-size: 16px;
-        font-family: 'Inter';
+        font-family: "Inter";
     }
 
     .contentBox {
