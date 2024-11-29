@@ -1,22 +1,44 @@
 <script>
-    let meal = "전체"; // 식사, 간식, 디저트
-    let cuisine = "전체"; // 한식, 양식, 중식, 일식
-    let category = "전체"; // 밥류, 면류, 육류, 튀김류
+    let meal = "음료"; // 음료, 간식, 식사
+    let category = "전체"; // 전체, 밥류, 면류, 육류, 튀김류 등
     let selectedMenu = null; // 가챠로 선택된 메뉴
+
+    // 상위 카테고리별 서브 카테고리 데이터
+    const subCategories = {
+        음료: ["전체", "음료 및 차류", "유제품류 및 빙과류"],
+        간식: ["전체", "빵 및 과자류", "젓갈류", "장아찌·절임류"],
+        식사: ["전체", "밥류", "면류", "육류", "튀김류", "국 및 탕류", "찌개 및 전골류", "조림류", "구이류", "나물·숙채류",],
+        기타: ["전체", "곡류, 서류 제품", "과일류", "김치류", "두류, 견과 및 종실류", "생채·무침류", "수·조·어·육류", "죽 및 스프류", "전·적 및 부침류", "장류, 양념류",],
+    };
+
+    let visibleSubCategories = subCategories["음료"]; // 초기값
 
     // 임시 데이터 (DB 연동 예정)
     let menus = [
-        { name: "치킨", meal: "식사", cuisine: "한식", category: "육류", image: "/img/slide1.png" },
-        { name: "스파게티", meal: "식사", cuisine: "양식", category: "면류", image: "/img/slide2.png" },
-        { name: "초밥", meal: "식사", cuisine: "일식", category: "밥류", image: "/img/slide3.png" },
+        { name: "치킨", meal: "식사", category: "구이류", image: "/img/slide1.png" },
+        { name: "스파게티", meal: "식사", category: "튀김류", image: "/img/slide2.png" },
+        { name: "초밥", meal: "식사", category: "밥류", image: "/img/slide3.png" },
     ];
+
+    // 상위 카테고리 클릭 이벤트
+    function selectMainCategory(category) {
+        meal = category;
+        visibleSubCategories = subCategories[category];
+        category = "전체"; // 서브 카테고리 초기화
+        updateSubCategoryUI();
+    }
+
+    // 하위 카테고리 선택
+    function selectSubCategory(subCategoryName) {
+        category = subCategoryName;
+        updateActiveStates();
+    }
 
     // 메뉴 랜덤 뽑기
     function pickRandomMenu() {
         const filteredMenus = menus.filter(
-            menu =>
+            (menu) =>
                 (meal === "전체" || menu.meal === meal) &&
-                (cuisine === "전체" || menu.cuisine === cuisine) &&
                 (category === "전체" || menu.category === category)
         );
 
@@ -26,6 +48,32 @@
             alert("조건에 맞는 메뉴가 없습니다. 다시 선택해주세요.");
         }
     }
+
+    // 하위 카테고리 UI 업데이트
+    function updateSubCategoryUI() {
+        const subCategoryElements = document.querySelectorAll(".sub-category span");
+        subCategoryElements.forEach((el) => {
+            const categoryName = el.textContent;
+            if (visibleSubCategories.includes(categoryName)) {
+                el.style.display = "inline-block"; // 표시
+            } else {
+                el.style.display = "none"; // 숨김
+            }
+        });
+        updateActiveStates();
+    }
+
+    // 선택된 상태 업데이트
+    function updateActiveStates() {
+        document.querySelectorAll(".sub-category span").forEach((el) => {
+            el.classList.toggle("active", el.textContent === category);
+        });
+    }
+
+    // 페이지 로드 시 초기화
+    window.onload = () => {
+        updateSubCategoryUI();
+    };
 
     // 식당 찾기
     function findMenu() {
@@ -38,7 +86,7 @@
         window.open(link, "_blank"); // 새 탭에서 열기
     }
 
-    //레시피 찾기
+        //레시피 찾기
     function findRecipe() {
         window.location.href='/recipe';
     }
@@ -46,69 +94,43 @@
 
 <main>
     <div class="gacha">
+        <div class="img-container">
+            {#if selectedMenu}
+                <!-- 가챠 후: 메뉴 이미지와 이름 표시 -->
+                <img src={selectedMenu.image} alt={selectedMenu.name} class="menu-image"/>
+            {:else}
+                <!-- 가차 전 : 메뉴 이미지 없음-->
+                <span class="placeholder-text">메뉴를 선택해주세요!</span>
+            {/if}
+        </div>
+
+        <div class="options">
+            <!-- 상위 카테고리 -->
+            <div class="option">
+                <span class:active={meal === "음료"} on:click={() => selectMainCategory("음료")}>음료</span>
+                <span class:active={meal === "간식"} on:click={() => selectMainCategory("간식")}>간식</span>
+                <span class:active={meal === "식사"} on:click={() => selectMainCategory("식사")}>식사</span>
+                <span class:active={meal === "기타"} on:click={() => selectMainCategory("기타")}>기타</span>
+            </div>
+
+            <!-- 하위 카테고리 -->
+            <div class="option last sub-category">
+                {#each visibleSubCategories as subCategoryName}
+                    <span class:active={category === subCategoryName} on:click={() => selectSubCategory(subCategoryName)}>{subCategoryName}</span>
+                {/each}
+            </div>
+        </div>
+        
         {#if !selectedMenu}
-            <!-- 메뉴 선택 화면 -->
-            <div class="img-container">
-                <!-- 가챠 전: 이미지 없음, 비어 있는 여백 -->
+            <div>
+                <button class="action-button" on:click={pickRandomMenu}>메뉴 뽑기</button>
             </div>
-            <div class="options">
-                <div class="option">
-                    <span class:active={meal === "전체"} on:click={() => (meal = "전체")}>전체</span>
-                    <span class:active={meal === "식사"} on:click={() => (meal = "식사")}>식사</span>
-                    <span class:active={meal === "간식"} on:click={() => (meal = "간식")}>간식</span>
-                    <span class:active={meal === "디저트"} on:click={() => (meal = "디저트")}>디저트</span>
-                </div>
-                <div class="option">
-                    <span class:active={cuisine === "전체"} on:click={() => (cuisine = "전체")}>전체</span>
-                    <span class:active={cuisine === "한식"} on:click={() => (cuisine = "한식")}>한식</span>
-                    <span class:active={cuisine === "양식"} on:click={() => (cuisine = "양식")}>양식</span>
-                    <span class:active={cuisine === "중식"} on:click={() => (cuisine = "중식")}>중식</span>
-                    <span class:active={cuisine === "일식"} on:click={() => (cuisine = "일식")}>일식</span>
-                </div>
-                <div class="option last">
-                    <span class:active={category === "전체"} on:click={() => (category = "전체")}>전체</span>
-                    <span class:active={category === "밥류"} on:click={() => (category = "밥류")}>밥류</span>
-                    <span class:active={category === "면류"} on:click={() => (category = "면류")}>면류</span>
-                    <span class:active={category === "육류"} on:click={() => (category = "육류")}>육류</span>
-                    <span class:active={category === "튀김류"} on:click={() => (category = "튀김류")}>튀김류</span>
-                </div>
-            </div>
-            <button class="action-button" on:click={pickRandomMenu}>메뉴 뽑기</button>
         {:else}
-            <!-- 메뉴 결과 화면 -->
-            <div class="img-container">
-                <!-- 가챠 후: 메뉴 이미지 표시 -->
-                <img src={selectedMenu.image} alt={selectedMenu.name} class="menu-image" />
-            </div>
-            <div class="options">
-                <div class="option">
-                    <span class:active={meal === "전체"} on:click={() => (meal = "전체")}>전체</span>
-                    <span class:active={meal === "식사"} on:click={() => (meal = "식사")}>식사</span>
-                    <span class:active={meal === "간식"} on:click={() => (meal = "간식")}>간식</span>
-                    <span class:active={meal === "디저트"} on:click={() => (meal = "디저트")}>디저트</span>
-                </div>
-                <div class="option">
-                    <span class:active={cuisine === "전체"} on:click={() => (cuisine = "전체")}>전체</span>
-                    <span class:active={cuisine === "한식"} on:click={() => (cuisine = "한식")}>한식</span>
-                    <span class:active={cuisine === "양식"} on:click={() => (cuisine = "양식")}>양식</span>
-                    <span class:active={cuisine === "중식"} on:click={() => (cuisine = "중식")}>중식</span>
-                    <span class:active={cuisine === "일식"} on:click={() => (cuisine = "일식")}>일식</span>
-                </div>
-                <div class="option last">
-                    <span class:active={category === "전체"} on:click={() => (category = "전체")}>전체</span>
-                    <span class:active={category === "밥류"} on:click={() => (category = "밥류")}>밥류</span>
-                    <span class:active={category === "면류"} on:click={() => (category = "면류")}>면류</span>
-                    <span class:active={category === "육류"} on:click={() => (category = "육류")}>육류</span>
-                    <span class:active={category === "튀김류"} on:click={() => (category = "튀김류")}>튀김류</span>
-                </div>
-            </div>
-            <div class="result">
+            <div>
                 <h2>{selectedMenu.name}</h2>
-                <div>
-                    <button class="action-button" on:click={pickRandomMenu}>다시 뽑기</button>
-                    <button class="action-button yellow" on:click={findMenu}>식당 찾기</button>
-                    <button class="action-button orange" on:click={findRecipe}>레시피 찾기</button>
-                </div>
+                <button class="action-button" on:click={pickRandomMenu}>다시 뽑기</button>
+                <button class="action-button yellow" on:click={findMenu}>식당 찾기</button>
+                <button class="action-button orange" on:click={findRecipe}>레시피 찾기</button>
             </div>
         {/if}
     </div>
@@ -136,15 +158,23 @@
     }
 
     .menu-image {
-        width: 100%;
-        height: 100%;
-        border: 1px solid #ddd;
-        border-radius: 10px;
-        object-fit: cover;
+        width: 100%; /* 컨테이너 너비에 맞게 설정 */
+        height: 100%; /* 컨테이너 높이에 맞게 설정 */
+        border-radius: 10px; /* 둥근 모서리 유지 */
+        object-fit: cover; /* 이미지가 컨테이너를 채우도록 설정 */
+        display: block; /* 이미지를 블록 요소로 설정 */
+    }
+
+    .placeholder-text {
+        position: absolute;
+        font-size: 18px;
+        color: #bbb;
+        text-align: center;
     }
 
     .options {
         display: flex;
+        width: 80%;
         flex-direction: column;
         margin-bottom: 20px;
         align-items: flex-start;
@@ -152,7 +182,7 @@
 
     .option {
         display: grid;
-        grid-template-columns: repeat(5, 1fr);
+        grid-template-columns: repeat(4, 1fr);
         justify-content: flex-start;
         font-size: 16px;
         cursor: pointer;
@@ -160,7 +190,7 @@
         width: 100%;
     }
 
-    .last{
+    .last {
         border-bottom: 2px solid;
     }
 
@@ -175,6 +205,11 @@
         background-color: #007bff;
         color: white;
         border-color: #0056b3;
+    }
+
+    h2 {
+        display: flex;
+        justify-content: center;
     }
 
     .action-button {
@@ -192,28 +227,5 @@
 
     .action-button:hover {
         background-color: #0056b3;
-    }
-
-    .action-button.yellow {
-        background-color: #ffc107;
-    }
-
-    .action-button.orange {
-        background-color: #fd7e14;
-    }
-
-    .action-button.yellow:hover {
-        background-color: #e0a800;
-    }
-
-    .action-button.orange:hover {
-        background-color: #e8590c;
-    }
-
-    .result {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 0px;
     }
 </style>
