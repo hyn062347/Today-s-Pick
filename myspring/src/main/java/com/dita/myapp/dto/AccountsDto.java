@@ -1,5 +1,7 @@
 package com.dita.myapp.dto;
 
+import java.sql.Timestamp;
+
 import com.dita.myapp.domain.Preference;
 
 import lombok.Getter;
@@ -14,6 +16,7 @@ public class AccountsDto {
     private String email;
     private String uimg_src;
     private String uimg_name;
+    private Timestamp created_at;
 
     private String[] preference;
 }
