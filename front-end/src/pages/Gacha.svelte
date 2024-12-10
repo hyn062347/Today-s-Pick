@@ -98,14 +98,19 @@
 
     // 식당 찾기
     function findMenu() {
-        if (!selectedMenu) {
+        if (!selectedMenu || !selectedMenu.mname) {
             alert("메뉴가 선택되지 않았습니다. 메뉴를 먼저 뽑아주세요.");
             return;
         }
 
-        const link = `https://map.naver.com/p/search/${encodeURIComponent(selectedMenu.mname)}`;
-        window.open(link, "_blank");
+        // '_ '앞의 단어를 추출
+        const searchKeyword = selectedMenu.mname.split("_")[0];
+        console.log("식당 찾기 검색 키워드:", searchKeyword);
+
+        const link = `https://map.naver.com/p/search/${encodeURIComponent(searchKeyword)}`;
+        window.open(link, "_blank"); // 새 탭에서 열기
     }
+
 
     // 레시피 찾기
     function findRecipe() {
