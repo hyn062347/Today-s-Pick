@@ -13,8 +13,8 @@
     const subCategories = {
         음료: ["전체", "음료 및 차류", "유제품류 및 빙과류"],
         간식: ["전체", "과일류", "두류, 견과 및 종실류", "빵 및 과자류", "유제품류 및 빙과류", "곡류, 서류 제품"],
-        식사: ["전체", "밥류", "복음류", "면 및 만두류", "육류", "수·조·어·육류", "구이류", "튀김류", "국 및 탕류", "찜류", "찌개 및 전골류", "조림류"],
-        반찬: ["전체", "젓갈류", "장아찌·절임류", "김치류",  "생채·무침류", "죽 및 스프류", "전·적 및 부침류", "장류, 양념류", "나물·숙채류"],
+        식사: ["전체", "밥류", "볶음류", "면 및 만두류", "육류", "수·조·어·육류", "구이류", "튀김류", "국 및 탕류", "찜류", "찌개 및 전골류", "죽 및 스프류", "조림류", "빵 및 과자류"],
+        반찬: ["전체", "젓갈류", "장아찌·절임류", "김치류",  "생채·무침류", "전·적 및 부침류", "장류, 양념류", "나물·숙채류"],
     };
 
     // 초기값 설정
@@ -37,12 +37,10 @@
         isLoading = true;
         selectedMenu = null;
 
-        console.log("현재 선택된 대분류(meal):", meal);
-        console.log("현재 선택된 세부 분류(category):", category);
-
-        // API 호출 시 대분류와 세부 분류 전달
+        // "전체"인 경우 하위 카테고리 전체를 API로 전달
+        const actualCategories = category === "전체" ? subCategories[meal] : [category];
         const response = await fetch(
-            `http://localhost:8080/api/menus/random?meal=${encodeURIComponent(meal)}&category=${encodeURIComponent(category)}`
+            `http://localhost:8080/api/menus/random?categories=${actualCategories.map(encodeURIComponent).join(",")}`
         );
 
         if (!response.ok) {
@@ -54,8 +52,6 @@
 
         if (selectedMenu && selectedMenu.mname) {
             const searchKeyword = selectedMenu.mname.split("_")[0];
-            console.log("검색 키워드 (Flickr):", searchKeyword);
-
             await fetchPhoto(searchKeyword); // Flickr API 호출
         } else {
             throw new Error("선택된 메뉴 데이터가 유효하지 않습니다.");
@@ -67,6 +63,9 @@
         isLoading = false;
     }
 }
+
+
+
 
 
     // Flickr API 사진 가져오기
