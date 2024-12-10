@@ -1,21 +1,20 @@
 package com.dita.myapp.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import lombok.Data;
+import jakarta.persistence.*;
+import lombok.*;
 
-@Data
 @Entity
+@Data
+
 public class Menu {
 
     @Id
-    private Long mid;
-    
-    private String mname;
-    private String ctg;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int mid; // Primary Key
 
-    
+    @Column(name = "mname")
+    private String mname; // 메뉴 이름
+
+    @Column(name = "ctg")
+    private String ctg; // 카테고리 (외래 키)
 }

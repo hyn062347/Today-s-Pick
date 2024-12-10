@@ -1,7 +1,5 @@
 package com.dita.myapp.domain;
 
-
-
 import java.sql.Timestamp;
 
 import org.hibernate.annotations.CurrentTimestamp;

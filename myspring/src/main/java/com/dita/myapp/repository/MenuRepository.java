@@ -1,15 +1,14 @@
 package com.dita.myapp.repository;
 
-import java.util.List;
-
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
-
 import com.dita.myapp.domain.Menu;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
-public interface MenuRepository extends CrudRepository<Menu, Long>{
-    
-    //가챠 관련
-    @Query(value = "select * from Menu WHERE ctg=?1 order by RAND() LIMIT 1",nativeQuery = true)
-    public List<Menu> gachaOneMenu(String ctg);
+@Repository
+public interface MenuRepository extends CrudRepository<Menu, Integer> {
+
+    @Query(value = "SELECT * FROM menu WHERE (:ctg IS NULL OR ctg = :ctg) ORDER BY RAND() LIMIT 1", nativeQuery = true)
+    Menu findRandomMenuByCategory(@Param("ctg") String category);
 }
