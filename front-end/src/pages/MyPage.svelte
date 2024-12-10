@@ -25,6 +25,66 @@
             userData.preference = [...userData.preference, option];
         }
     }
+    async function getPreference(){
+        try {
+            const response = await fetch(
+                "http://localhost:8080/api/preference/all",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(userData),
+                    credentials: "include",
+                },
+            );
+
+            if (!response.ok) {
+                throw new Error(`서버오류: ${response.status}`);
+            }
+
+            const result = await response.json();
+            console.log("서버 응답", result);
+            userData.preference=result;
+
+        } catch (error) {
+            console.error(`데이터 전송 오류`, error);
+        }
+    }
+
+    async function getUserInfo() {
+        try {
+            userData.uid=sessionStorage.getItem("idkey");
+            const response = await fetch(
+                "http://localhost:8080/api/account/getuser",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(userData),
+                    credentials: "include",
+                },
+            );
+
+            if (!response.ok) {
+                throw new Error(`서버오류: ${response.status}`);
+            }
+
+            const result = await response.json();
+            console.log("서버 응답", result);
+            userData.email=result.email;
+            userData.uname=result.uname;
+            userData.image=result.uimg_src+result.uimg_name;
+
+            getPreference();
+
+        } catch (error) {
+            console.error(`데이터 전송 오류`, error);
+        }
+    }
+
+    getUserInfo();
 </script>
 
 <main class="setCenter">

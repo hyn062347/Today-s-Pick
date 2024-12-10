@@ -74,4 +74,23 @@ public class AccountsService{
         }
         return account;
     }
+
+    public AccountsDto getUserInfo(String uid){
+        Accounts account=new Accounts();
+        try{
+            account=accountRepository.findByUid(uid);
+        }
+        catch(Exception e){
+            
+        }
+        AccountsDto accdto=new AccountsDto();
+        accdto.setEmail(account.getEmail());
+        accdto.setPassword(account.getPassword());
+        accdto.setUid(account.getUid());
+        accdto.setUimg_name(account.getUimg_name());
+        accdto.setUimg_src(account.getUimg_src());
+        accdto.setUname(account.getUname());
+        
+        return accdto;
+    }
 }

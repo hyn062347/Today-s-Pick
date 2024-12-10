@@ -24,6 +24,6 @@ public interface AccountsRepository extends CrudRepository<Accounts, String>{
     public String findIdByEmail(String email);
 
     @Query(value="select * from Accounts where uid=?1",nativeQuery = true)
-    public List<Accounts> findByUid(String uid);
+    public Accounts findByUid(String uid);
 
 }

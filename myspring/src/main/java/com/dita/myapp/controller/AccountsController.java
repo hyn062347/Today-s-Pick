@@ -55,6 +55,19 @@ public class AccountsController {
         System.out.println(dto);
         return ResponseEntity.ok().body(dto);
     }
+
+    @PostMapping("/getuser")
+    public ResponseEntity<?> getUser(@RequestBody AccountsDto accountdto) {
+        AccountsDto accdto=new AccountsDto();
+
+        try {
+            accdto = accountsService.getUserInfo(accountdto.getUid());
+        } catch (Exception e) {
+            return ResponseEntity.status(401).body(e.toString());
+        }
+        
+        return ResponseEntity.ok().body(accdto);
+    }
     
 
 }
