@@ -2,7 +2,7 @@
     let userData = {        // 유저 프로필 (임시)
         image: 'https://via.placeholder.com/100',  // 프로필 이미지
         uid: 'rang',        // 아이디 
-        password: '123',    // 비밀번호
+        password: '1234',    // 비밀번호
         email: 'rang@gmail.com',      // 이메일
         uname: '고해랑',       // 닉네임
         preference: []      // 선호 음식 (체크리스트)
@@ -25,6 +25,62 @@
             userData.preference = [...userData.preference, option];
         }
     }
+    async function setPreference(){
+        try {
+            const response = await fetch(
+                "http://localhost:8080/api/preference/set",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(userData),
+                    credentials: "include",
+                },
+            );
+
+            if (!response.ok) {
+                throw new Error(`서버오류: ${response.status}`);
+            }
+
+            const result = await response.json();
+            console.log("서버 응답", result);
+            userData.preference=result;
+
+        } catch (error) {
+            console.error(`데이터 전송 오류`, error);
+        }
+        
+    }
+    async function setUser(){
+        try {
+            userData.uid=sessionStorage.getItem("idkey");
+            const response = await fetch(
+                "http://localhost:8080/api/account/setuser",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(userData),
+                    credentials: "include",
+                },
+            );
+
+            if (!response.ok) {
+                throw new Error(`서버오류: ${response.status}`);
+            }
+
+            const result = await response.json();
+            console.log("서버 응답", result);
+
+            setPreference();
+
+        } catch (error) {
+            console.error(`데이터 전송 오류`, error);
+        }
+    }
+
     async function getPreference(){
         try {
             const response = await fetch(
@@ -80,7 +136,7 @@
             getPreference();
 
         } catch (error) {
-            console.error(`데이터 전송 오류`, error);
+            
         }
     }
 
@@ -123,7 +179,7 @@
             </div>
             <div>
                 <button class="cancel" type="reset">Cancel</button>
-                <button class="confirm" type="submit">Confirm</button>
+                <button class="confirm" on:click={setUser} >Confirm</button>
             </div>
         </form>
     </div>

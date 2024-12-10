@@ -24,8 +24,9 @@ import lombok.extern.java.Log;
 @Log
 public class PreferenceController {
     private final PreferenceService preferenceService;
+
     @PostMapping("/all")
-    public ResponseEntity<?> getFavoriteAll(@RequestBody AccountsDto accdto) {
+    public ResponseEntity<?> getPreferenceAll(@RequestBody AccountsDto accdto) {
         ArrayList<PreferenceDto> list=new ArrayList<>();
         try{
             list=preferenceService.getPreference(accdto.getUid());
@@ -37,7 +38,19 @@ public class PreferenceController {
         for (PreferenceDto predto : list) {
             li.add(predto.getCtg());
         }
-        
+
         return ResponseEntity.ok().body(li);
+    }
+
+    @PostMapping("/set")
+    public ResponseEntity<?> setPreference(@RequestBody AccountsDto accdto) {
+
+        try{
+            preferenceService.setPreference(accdto.getUid(),accdto.getPreference());
+        }catch(Exception e){
+            return ResponseEntity.ok().body(false);
+        }
+        
+        return ResponseEntity.ok().body(true);
     }
 }

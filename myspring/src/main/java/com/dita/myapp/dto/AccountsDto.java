@@ -1,5 +1,7 @@
 package com.dita.myapp.dto;
 
+import com.dita.myapp.domain.Preference;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,4 +15,5 @@ public class AccountsDto {
     private String uimg_src;
     private String uimg_name;
 
+    private String[] preference;
 }

@@ -93,4 +93,22 @@ public class AccountsService{
         
         return accdto;
     }
+
+    public boolean setUserInfo(AccountsDto dto){
+        Accounts account=new Accounts();
+        try{
+            account.setUid(dto.getUid());
+            account.setPassword(passwordEncoder.encode(dto.getPassword()));
+            account.setEmail(dto.getEmail());
+            account.setUname(dto.getUname());
+            account.setUimg_src(dto.getUimg_src());
+            account.setUimg_name(dto.getUimg_name());
+            account=accountRepository.save(account);
+        }
+        catch(Exception e){
+            return false;
+        }
+        
+        return true;
+    }
 }

@@ -69,5 +69,16 @@ public class AccountsController {
         return ResponseEntity.ok().body(accdto);
     }
     
+    @PostMapping("/setuser")
+    public ResponseEntity<?> setUser(@RequestBody AccountsDto accountdto) {
+        boolean b;
+        try {
+            b=accountsService.setUserInfo(accountdto);
+        } catch (Exception e) {
+            return ResponseEntity.status(401).body(false);
+        }
+        
+        return ResponseEntity.ok().body(b);
+    }
 
 }
