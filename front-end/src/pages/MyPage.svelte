@@ -28,7 +28,7 @@
     async function setPreference(){
         try {
             const response = await fetch(
-                "http://localhost:8080/api/preference/set",
+                "http://113.198.238.115:8080/api/preference/set",
                 {
                     method: "POST",
                     headers: {
@@ -56,7 +56,7 @@
         try {
             userData.uid=sessionStorage.getItem("idkey");
             const response = await fetch(
-                "http://localhost:8080/api/account/setuser",
+                "http://113.198.238.115:8080/api/account/setuser",
                 {
                     method: "POST",
                     headers: {
@@ -84,7 +84,7 @@
     async function getPreference(){
         try {
             const response = await fetch(
-                "http://localhost:8080/api/preference/all",
+                "http://113.198.238.115:8080/api/preference/all",
                 {
                     method: "POST",
                     headers: {
@@ -112,7 +112,7 @@
         try {
             userData.uid=sessionStorage.getItem("idkey");
             const response = await fetch(
-                "http://localhost:8080/api/account/getuser",
+                "http://113.198.238.115:8080/api/account/getuser",
                 {
                     method: "POST",
                     headers: {
@@ -151,15 +151,13 @@
                 {#if userData.image}
                     <img src={userData.image} alt="Image" class="profileImage"/>
                 {:else}
-                    <span>이미지 첨부</span>
+                    <img src="/img/noImg.png" class="profileImage"/>
                 {/if}
             </div>
             
-            <input type="text" class="input name" bind:value={userData.uname} placeholder="Name"/>
             <div class="form-container">
-                <input type="ID" class="input" bind:value={userData.uid} placeholder="ID" />
-                <input type="password" class="input" bind:value={userData.password} placeholder="Password" />
-                <input type="password" class="input" placeholder="Password Confirm"/>
+                <input type="ID" class="input nonclick" bind:value={userData.uid} placeholder="ID" />
+                <input type="text" class="input" bind:value={userData.uname} placeholder="Name"/>
                 <input type="email" class="input last" bind:value={userData.email} placeholder="Email"/>
                 <fieldset>
                     <legend>선호 음식 종류</legend>
@@ -251,6 +249,11 @@
         border-bottom: 1px solid #eee;
         padding: 8px 15px;
         margin-bottom: 2px;
+    }
+
+    .nonclick{
+        pointer-events: none;
+        cursor: not-allowed;
     }
 
     .name{
