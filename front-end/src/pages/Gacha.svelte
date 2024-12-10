@@ -12,9 +12,9 @@
     // 하위 카테고리 설정
     const subCategories = {
         음료: ["전체", "음료 및 차류", "유제품류 및 빙과류"],
-        간식: ["전체", "빵 및 과자류", "젓갈류", "장아찌·절임류"],
-        식사: ["전체", "밥류", "면류", "육류", "튀김류", "국 및 탕류", "찌개 및 전골류", "조림류", "구이류", "나물·숙채류"],
-        기타: ["전체", "곡류, 서류 제품", "과일류", "김치류", "두류, 견과 및 종실류", "생채·무침류", "수·조·어·육류", "죽 및 스프류", "전·적 및 부침류", "장류, 양념류"],
+        간식: ["전체", "과일류", "두류, 견과 및 종실류", "빵 및 과자류", "유제품류 및 빙과류", "곡류, 서류 제품"],
+        식사: ["전체", "밥류", "복음류", "면 및 만두류", "육류", "수·조·어·육류", "구이류", "튀김류", "국 및 탕류", "찜류", "찌개 및 전골류", "조림류"],
+        반찬: ["전체", "젓갈류", "장아찌·절임류", "김치류",  "생채·무침류", "죽 및 스프류", "전·적 및 부침류", "장류, 양념류", "나물·숙채류"],
     };
 
     // 초기값 설정
@@ -138,7 +138,7 @@
                 <span class:active={meal === "음료"} on:click={() => selectMainCategory("음료")}>음료</span>
                 <span class:active={meal === "간식"} on:click={() => selectMainCategory("간식")}>간식</span>
                 <span class:active={meal === "식사"} on:click={() => selectMainCategory("식사")}>식사</span>
-                <span class:active={meal === "기타"} on:click={() => selectMainCategory("기타")}>기타</span>
+                <span class:active={meal === "반찬"} on:click={() => selectMainCategory("반찬")}>반찬</span>
             </div>
 
             <div class="option last sub-category">
