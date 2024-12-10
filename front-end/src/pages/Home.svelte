@@ -7,19 +7,14 @@
 
 <main>
     <Slider/>
-    <div class="ButtonSection">
-        {#if !sessionStorage.getItem("idkey")}
+    {#if !sessionStorage.getItem("idkey")}
             <h1>Did not Log in</h1>
         {:else}
-        <h1>Welcom, {sessionStorage.getItem("idkey")}</h1>
+            <h1>Welcom, {sessionStorage.getItem("idkey")}</h1>
         {/if}
-        <button class="TodaysPick" on:click={() => navigate("/gacha")}>Random</button>
+    <div class="ButtonSection">
+        <button class="TodaysPick" on:click={() => navigate("/gacha")}>메뉴뽑기</button>
         <button class="Favorite" on:click={() => navigate("/favorite")}>즐겨찾기</button>
-        <button class="Favorite" on:click={() => navigate("/upload")}>Upload</button>
-        <button class="Favorite" on:click={() => navigate("/recipe")}>Recipe</button>
-        <button class="Favorite" on:click={() => navigate("/history")}>History</button>
-        <button class="Favorite" on:click={() => navigate("/myrecipe")}>MyRecipe</button>
-        
     </div>
 </main>
 
@@ -30,8 +25,7 @@
     
     .ButtonSection{
         display: flex;
-        flex-direction: column;
-        /* align-content: center; */
+        flex-direction: row;
         justify-content: space-evenly;
         align-items: center;
         padding: 60px;
@@ -41,10 +35,10 @@
         border-radius: 20px;
         border: none;
         color: white;
-        /* padding-left: 10%;
-        padding-right: 10%; */
-        /* padding-top: 6%;
-        padding-bottom: 6%; */
+        padding-left: 10%;
+        padding-right: 10%;
+        padding-top: 6%;
+        padding-bottom: 6%;
         font-size: xx-large;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
