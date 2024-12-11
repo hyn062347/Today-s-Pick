@@ -11,6 +11,10 @@
         uid: 'rang'      // 작성자 UID (임시 값)
     };
 
+    let options = [
+        "음료 및 차류", "유제품류 및 빙과류", "과일류", "두류, 견과 및 종실류", "곡류, 서류 제품", "밥류", "볶음류", "면 및 만두류", "육류", "수·조·어·육류", "구이류", "튀김류", "국 및 탕류", "찜류", "찌개 및 전골류", "죽 및 스프류", "조림류", "빵 및 과자류", "젓갈류", "장아찌·절임류", "김치류",  "생채·무침류", "전·적 및 부침류", "장류, 양념류", "나물·숙채류"
+    ]
+
     async function handleUpload() {
         if (!uploadData.image) {
             alert("이미지를 선택해주세요!");
@@ -71,10 +75,9 @@
                 <input type="text" class="input" placeholder="메뉴 이름" bind:value={uploadData.name} />
                 <select class="input" bind:value={uploadData.category}>
                     <option value="" disabled selected>카테고리</option>
-                    <option value="밥류">밥류</option>
-                    <option value="면류">면류</option>
-                    <option value="국/찌개">국/찌개</option>
-                    <option value="기타">기타</option>
+                    {#each options as option}
+                        <option value={option}>{option}</option>
+                    {/each}
                 </select>
                 <input type="text" class="input" placeholder="재료" bind:value={uploadData.ingredients} />
                 <textarea class="input textarea" placeholder="쌈뽕한 요리방법" bind:value={uploadData.recipe}></textarea>
