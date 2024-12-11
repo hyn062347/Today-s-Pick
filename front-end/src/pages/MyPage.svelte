@@ -1,6 +1,8 @@
 <script>
+    import { navigate } from "svelte-routing";
+
     let userData = {        // 유저 프로필 (임시)
-        image: 'https://via.placeholder.com/100',  // 프로필 이미지
+        image: null,  // 프로필 이미지
         uid: 'rang',        // 아이디 
         password: '1234',    // 비밀번호
         email: 'rang@gmail.com',      // 이메일
@@ -153,13 +155,14 @@
     <div class="form-box">
         <form class="form" on:submit|preventDefault={() => console.log(userData)}>
             <span class="title">프로필</span>
-            <div>
+            <label>
                 {#if userData.image}
-                    <img src={userData.image} alt="Image" class="profileImage"/>
+                    <img src={URL.createObjectURL(userData.image)} alt="미리보기" class="profileImage"/>
                 {:else}
                     <img src="/img/noImg.png" class="profileImage"/>
                 {/if}
-            </div>
+                <input id="image-upload" type="file" accept="image/*" class="input-file" on:change={(e) => userData.image = e.target.files[0]} />
+            </label>
             
             <div class="form-container">
                 <input type="ID" class="input nonclick" bind:value={userData.uid} placeholder="ID" />
@@ -182,7 +185,7 @@
                 </fieldset>
             </div>
             <div>
-                <button class="cancel" type="reset">Cancel</button>
+                <button class="cancel" on:click={() => navigate('/')}>Cancel</button>
                 <button class="confirm" on:click={setUser} >Confirm</button>
             </div>
         </form>
@@ -255,6 +258,10 @@
         border-bottom: 1px solid #eee;
         padding: 8px 15px;
         margin-bottom: 2px;
+    }
+
+    .input-file {
+        display: none;
     }
 
     .nonclick{
