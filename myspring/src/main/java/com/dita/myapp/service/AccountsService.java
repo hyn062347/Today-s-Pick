@@ -90,19 +90,25 @@ public class AccountsService{
         accdto.setUimg_name(account.getUimg_name());
         accdto.setUimg_src(account.getUimg_src());
         accdto.setUname(account.getUname());
+        accdto.setCreated_at(account.getCreated_at());
         
         return accdto;
     }
 
     public boolean setUserInfo(AccountsDto dto){
         Accounts account=new Accounts();
+        AccountsDto accdto=new AccountsDto();
+
+
         try{
             account.setUid(dto.getUid());
-            account.setPassword(passwordEncoder.encode(dto.getPassword()));
+            account.setPassword(dto.getPassword());
             account.setEmail(dto.getEmail());
             account.setUname(dto.getUname());
+            account.setCreated_at(dto.getCreated_at());
             account.setUimg_src(dto.getUimg_src());
             account.setUimg_name(dto.getUimg_name());
+            System.out.println("log123123"+account.toString());
             account=accountRepository.save(account);
         }
         catch(Exception e){

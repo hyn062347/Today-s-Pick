@@ -5,6 +5,7 @@
         password: '1234',    // 비밀번호
         email: 'rang@gmail.com',      // 이메일
         uname: '고해랑',       // 닉네임
+        created_at: '',
         preference: []      // 선호 음식 (체크리스트)
     };
 
@@ -28,7 +29,7 @@
     async function setPreference(){
         try {
             const response = await fetch(
-                "http://113.198.238.115:8080/api/preference/set",
+                "http://localhost:8080/api/preference/set",
                 {
                     method: "POST",
                     headers: {
@@ -47,6 +48,8 @@
             console.log("서버 응답", result);
             userData.preference=result;
 
+            
+
         } catch (error) {
             console.error(`데이터 전송 오류`, error);
         }
@@ -56,7 +59,7 @@
         try {
             userData.uid=sessionStorage.getItem("idkey");
             const response = await fetch(
-                "http://113.198.238.115:8080/api/account/setuser",
+                "http://localhost:8080/api/account/setuser",
                 {
                     method: "POST",
                     headers: {
@@ -75,7 +78,8 @@
             console.log("서버 응답", result);
 
             setPreference();
-
+            alert("수정완료");
+            window.location.href='/';
         } catch (error) {
             console.error(`데이터 전송 오류`, error);
         }
@@ -84,7 +88,7 @@
     async function getPreference(){
         try {
             const response = await fetch(
-                "http://113.198.238.115:8080/api/preference/all",
+                "http://localhost:8080/api/preference/all",
                 {
                     method: "POST",
                     headers: {
@@ -112,7 +116,7 @@
         try {
             userData.uid=sessionStorage.getItem("idkey");
             const response = await fetch(
-                "http://113.198.238.115:8080/api/account/getuser",
+                "http://localhost:8080/api/account/getuser",
                 {
                     method: "POST",
                     headers: {
@@ -132,6 +136,8 @@
             userData.email=result.email;
             userData.uname=result.uname;
             userData.image=result.uimg_src+result.uimg_name;
+            userData.password=result.password;
+            userData.created_at=result.created_at;
 
             getPreference();
 
