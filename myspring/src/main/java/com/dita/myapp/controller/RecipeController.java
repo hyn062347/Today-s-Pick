@@ -1,7 +1,6 @@
 package com.dita.myapp.controller;
 
 import com.dita.myapp.domain.Recipe;
-import com.dita.myapp.dto.RecipeDTO;
 import com.dita.myapp.service.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -25,19 +25,8 @@ public class RecipeController {
         this.recipeService = recipeService;
     }
 
-    /**
-     * 레시피 등록 API
-     *
-     * @param file         업로드할 이미지 파일
-     * @param recipeTitle  레시피 제목
-     * @param category     분류
-     * @param ingredients  재료 리스트
-     * @param instructions 요리 방법
-     * @param uid          작성자 UID
-     * @return 성공 또는 실패 메시지
-     */
     @PostMapping
-    public ResponseEntity<String> addRecipe(
+    public ResponseEntity<Object> addRecipe(
             @RequestParam("image") MultipartFile file,
             @RequestParam("name") String name, // 메뉴 이름
             @RequestParam("recipeTitle") String recipeTitle,
@@ -46,20 +35,30 @@ public class RecipeController {
             @RequestParam("instructions") String instructions,
             @RequestParam("uid") String uid) {
         try {
+            System.out.println("Received name: " + name); // 로그 추가
+            System.out.println("Received uid: " + uid); // 로그 추가
+
+            // 메뉴 이름으로 mid 조회
+            Long mid = recipeService.findMenuIdByName(name);
+            System.out.println("Found mid: " + mid); // 로그 추가
+
+            if (mid == null) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body(Map.of("error", "Invalid menu name", "message", "Menu not found: " + name));
+            }
+
             // 이미지 저장 경로 설정
             String folder = "uploads/";
             String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
             Path filePath = Paths.get(folder + fileName);
 
-            // 폴더 생성 (존재하지 않으면)
             Files.createDirectories(filePath.getParent());
-
-            // 파일 저장
             Files.write(filePath, file.getBytes());
 
-            // DTO 생성
-            RecipeDTO recipeDTO = RecipeDTO.builder()
+            // Recipe 생성
+            Recipe recipe = Recipe.builder()
                     .uid(uid)
+                    .mid(mid) // 조회한 메뉴 ID 설정
                     .rimg_src(folder)
                     .rimg_name(fileName)
                     .recipe_title(recipeTitle)
@@ -67,23 +66,17 @@ public class RecipeController {
                     .instructions(instructions)
                     .build();
 
-            // DTO -> Entity 변환 및 데이터 저장
-            Recipe recipe = Recipe.builder()
-                    .uid(recipeDTO.getUid())
-                    .rimg_src(recipeDTO.getRimg_src())
-                    .rimg_name(recipeDTO.getRimg_name())
-                    .recipe_title(recipeDTO.getRecipe_title())
-                    .ingredients(recipeDTO.getIngredients())
-                    .instructions(recipeDTO.getInstructions())
-                    .build();
+            Recipe savedRecipe = recipeService.saveRecipe(recipe);
+            System.out.println("Saved recipe: " + savedRecipe); // 로그 추가
 
-            recipeService.saveRecipe(recipe);
-
-            return ResponseEntity.status(HttpStatus.CREATED).body("Recipe added successfully");
+            return ResponseEntity.status(HttpStatus.CREATED).body(savedRecipe);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to save recipe: " + e.getMessage());
+
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(Map.of(
+                            "error", "Failed to save recipe",
+                            "message", e.getMessage()));
         }
     }
-
 }
