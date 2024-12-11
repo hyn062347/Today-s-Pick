@@ -11,7 +11,9 @@ import java.util.List;
 @Repository
 public interface MenuRepository extends CrudRepository<Menu, Integer> {
 
-    @Query("SELECT m FROM Menu m WHERE m.ctg IN :categories ORDER BY RAND() LIMIT 1")
+    @Query(value = "SELECT * FROM menu WHERE ctg IN :categories ORDER BY RAND() LIMIT 1", nativeQuery = true)
     Menu findRandomMenuByCategories(@Param("categories") List<String> categories);
 
+    @Query("SELECT m.mid FROM Menu m WHERE m.mname = :name")
+    Long findMenuIdByName(@Param("name") String name); // 이름으로 메뉴 ID 조회
 }
