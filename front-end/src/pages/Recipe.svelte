@@ -1,4 +1,6 @@
 <script>
+    import { navigate } from "svelte-routing";
+
     let image = "/img/SequoiaLight.png";
     function editData() {
         console.log("Edit");
@@ -11,14 +13,11 @@
 <main class="main">
     <h1>Recipe</h1>
 
-    <div class="element">
+    <div class="element" on:click={() => navigate('/recipedetail')}>
         <img src={image} alt="Image" />
         <div class="stringBox">
             <span class="title">Title</span>
             <span class="subtitle">Subtitle</span>
-        </div>
-        <div class="contentBox">
-            <span class="delete" on:click={() => deleteData()}>Delete</span>
         </div>
     </div>
     <!-- --------------^형식으로 만들면 됨--------------- -->
@@ -29,10 +28,6 @@
         <div class="stringBox">
             <span class="title">Title</span>
             <span class="subtitle">Subtitle</span>
-        </div>
-        <div class="contentBox">
-            <span class="Edit" on:click={() => editData()}>Edit</span>
-            <span class="delete" on:click={() => deleteData()}>Delete</span>
         </div>
     </div>
     <!-- --------------테스트용--------------- -->
@@ -65,11 +60,6 @@
         margin: 15px;
     }
 
-    .element .delete {
-        font-size: 20px;
-        color: red;
-    }
-
     .stringBox {
         display: flex;
         flex-direction: column;
@@ -85,13 +75,6 @@
     .stringBox .subtitle {
         font-size: 16px;
         font-family: 'Inter';
-    }
-
-    .contentBox {
-        display: flex;
-        gap: 10px;
-        flex-direction: row;
-        align-items: center;
     }
 
     span {

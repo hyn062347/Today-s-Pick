@@ -17,6 +17,7 @@
     import Recipe from "./pages/Recipe.svelte";
     import History from "./pages/History.svelte";
     import Option from "./components/Option.svelte";
+    import RecipeDetail from "./pages/RecipeDetail.svelte";
     let currentPath = "/";
 
 </script>
@@ -41,6 +42,7 @@
         <Route path="/recipe" component = {Recipe}/>
         <Route path="/history" component = {History}/>
         <Route path="/option" component = {Option}/>
+        <Route path="/recipedetail" component = {RecipeDetail}/>
     </Router>
 </main>
 
