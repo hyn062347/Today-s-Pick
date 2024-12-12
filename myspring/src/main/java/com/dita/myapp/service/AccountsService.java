@@ -1,6 +1,5 @@
 package com.dita.myapp.service;
 
-import java.sql.SQLException;
 
 // import com.dita.myapp.dto.LoginRequest;
 // import com.dita.myapp.dto.SignupRequest;

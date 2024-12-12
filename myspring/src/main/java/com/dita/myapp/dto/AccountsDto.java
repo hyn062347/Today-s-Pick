@@ -2,8 +2,6 @@ package com.dita.myapp.dto;
 
 import java.sql.Timestamp;
 
-import com.dita.myapp.domain.Preference;
-
 import lombok.Getter;
 import lombok.Setter;
 

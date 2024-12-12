@@ -1,7 +1,6 @@
 package com.dita.myapp.repository;
 
 import com.dita.myapp.domain.Accounts;
-import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
 // import org.springframework.stereotype.Repository;
