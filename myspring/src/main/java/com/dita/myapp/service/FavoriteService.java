@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.dita.myapp.domain.Favorite;
 import com.dita.myapp.domain.FavoriteId;
 import com.dita.myapp.dto.FavoriteDto;
 import com.dita.myapp.repository.FavoriteRepository;
