@@ -1,4 +1,5 @@
 <script>
+    import { onMount } from "svelte";
     import { navigate } from "svelte-routing";
 
     let recipeData = {
@@ -8,9 +9,57 @@
         category: '',       // 분류
         ingredients: '',    // 재료
         recipe: '',         // 요리 방법
-        uid: 'rang'      // 작성자 UID (임시 값)
+        uid: ''             // 작성자 UID
     };
 
+    let rid = null; // 레시피 ID
+
+    // 페이지 로드 시 실행
+    onMount(async () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        rid = urlParams.get("rid");
+
+        if (!rid) {
+            alert("잘못된 접근입니다.");
+            navigate("/");
+        } else {
+            await fetchRecipeDetails(rid); // 레시피 데이터 가져오기
+        }
+    });
+
+    // 서버에서 레시피 상세 정보를 가져오는 함수
+    async function fetchRecipeDetails(rid) {
+        try {
+            const response = await fetch(`http://localhost:8080/api/recipes/details`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ rid })
+            });
+
+            if (!response.ok) {
+                throw new Error(`레시피를 가져오는 중 오류가 발생했습니다. 상태 코드: ${response.status}`);
+            }
+
+            const data = await response.json();
+            console.log("가져온 레시피 데이터:", data);
+
+            // 서버에서 가져온 데이터를 recipeData에 반영
+            recipeData = {
+                image: data.rimg_src + data.rimg_name,
+                name: data.menu_name,
+                title: data.recipe_title,
+                category: data.category,
+                ingredients: data.ingredients,
+                recipe: data.instructions,
+                uid: data.uid
+            };
+        } catch (error) {
+            console.error("레시피 가져오기 오류:", error);
+            alert("레시피를 가져오는 중 오류가 발생했습니다.");
+        }
+    }
 </script>
 
 <main class="setCenter">
@@ -19,18 +68,21 @@
             <div class="image-upload">
                 <label for="image-upload">
                     <div class="image-placeholder">
-                        <img/>
+                        {#if recipeData.image}
+                            <img src={recipeData.image} alt={recipeData.title} />
+                        {:else}
+                            <span>이미지 없음</span>
+                        {/if}
                     </div>
                 </label>
-                <input id="image-upload" type="file" accept="image/*" class="input-file" on:change={(e) => recipeData.image = e.target.files[0]} />
             </div>
 
             <div class="form-container">
-                <input type="text" class="input" placeholder="글 제목" bind:value={recipeData.title} />
-                <input type="text" class="input" placeholder="메뉴 이름" bind:value={recipeData.name} />
-                <input type="text" class="input" placeholder="카테고리" bind:value={recipeData.category}>
-                <input type="text" class="input" placeholder="재료" bind:value={recipeData.ingredients} />
-                <textarea class="input textarea" placeholder="쌈뽕한 요리방법" bind:value={recipeData.recipe}></textarea>
+                <input type="text" class="input" placeholder="글 제목" bind:value={recipeData.title} readonly />
+                <input type="text" class="input" placeholder="메뉴 이름" bind:value={recipeData.name} readonly />
+                <input type="text" class="input" placeholder="카테고리" bind:value={recipeData.category} readonly />
+                <input type="text" class="input" placeholder="재료" bind:value={recipeData.ingredients} readonly />
+                <textarea class="input textarea" placeholder="쌈뽕한 요리방법" bind:value={recipeData.recipe} readonly></textarea>
             </div>
 
         </form>
@@ -129,5 +181,4 @@
         height: 120px;
         resize: none;
     }
-
 </style>
