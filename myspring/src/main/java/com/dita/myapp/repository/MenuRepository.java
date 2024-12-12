@@ -16,5 +16,5 @@ public interface MenuRepository extends CrudRepository<Menu, Integer> {
 
     // 이름으로 메뉴 ID 조회 메서드 추가
     @Query("SELECT m.mid FROM Menu m WHERE m.mname = :name")
-    Integer findMenuIdByName(@Param("name") String name);
+    Long findMenuIdByName(@Param("name") String name);
 }
