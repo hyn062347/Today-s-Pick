@@ -28,26 +28,24 @@ public class RecipeController {
     @PostMapping
     public ResponseEntity<Object> addRecipe(
             @RequestParam("image") MultipartFile file,
-            @RequestParam("name") String name, // 메뉴 이름
+            @RequestParam("name") String name,
             @RequestParam("recipeTitle") String recipeTitle,
             @RequestParam("category") String category,
             @RequestParam("ingredients") String ingredients,
             @RequestParam("instructions") String instructions,
             @RequestParam("uid") String uid) {
         try {
-            System.out.println("Received name: " + name); // 로그 추가
-            System.out.println("Received uid: " + uid); // 로그 추가
+            System.out.println("Received name: " + name);
+            System.out.println("Received uid: " + uid);
 
-            // 메뉴 이름으로 mid 조회
             Long mid = recipeService.findMenuIdByName(name);
-            System.out.println("Found mid: " + mid); // 로그 추가
+            System.out.println("Found mid: " + mid);
 
             if (mid == null) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                         .body(Map.of("error", "Invalid menu name", "message", "Menu not found: " + name));
             }
 
-            // 이미지 저장 경로 설정
             String folder = "uploads/";
             String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
             Path filePath = Paths.get(folder + fileName);
@@ -55,10 +53,9 @@ public class RecipeController {
             Files.createDirectories(filePath.getParent());
             Files.write(filePath, file.getBytes());
 
-            // Recipe 생성
             Recipe recipe = Recipe.builder()
                     .uid(uid)
-                    .mid(mid) // 조회한 메뉴 ID 설정
+                    .mid(mid)
                     .rimg_src(folder)
                     .rimg_name(fileName)
                     .recipe_title(recipeTitle)
@@ -67,15 +64,29 @@ public class RecipeController {
                     .build();
 
             Recipe savedRecipe = recipeService.saveRecipe(recipe);
-            System.out.println("Saved recipe: " + savedRecipe); // 로그 추가
+            System.out.println("Saved recipe: " + savedRecipe);
 
             return ResponseEntity.status(HttpStatus.CREATED).body(savedRecipe);
         } catch (Exception e) {
             e.printStackTrace();
-
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(Map.of(
                             "error", "Failed to save recipe",
+                            "message", e.getMessage()));
+        }
+    }
+
+    @GetMapping
+    public ResponseEntity<Object> getRecipesByMenuId(@RequestParam("mid") Long mid) {
+        try {
+            System.out.println("Fetching recipes for mid: " + mid);
+            Iterable<Recipe> recipes = recipeService.getRecipesByMenuId(mid);
+            return ResponseEntity.ok(recipes);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(Map.of(
+                            "error", "Failed to fetch recipes",
                             "message", e.getMessage()));
         }
     }

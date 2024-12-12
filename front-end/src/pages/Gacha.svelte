@@ -119,8 +119,7 @@
             return;
         }
 
-        const link = `/recipe?menu=${encodeURIComponent(selectedMenu.mname)}`;
-        window.location.href = link;
+        window.location.href = `/recipe?mid=${selectedMenu.mid}`;
     }
 </script>
 

@@ -25,10 +25,21 @@ public class RecipeService {
     public Long findMenuIdByName(String name) {
         try {
             Long mid = menuRepository.findMenuIdByName(name);
-            System.out.println("findMenuIdByName() - name: " + name + ", mid: " + mid); // 로그 추가
+            System.out.println("findMenuIdByName() - name: " + name + ", mid: " + mid);
             return mid;
         } catch (Exception e) {
             System.err.println("Error in findMenuIdByName: " + e.getMessage());
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public Iterable<Recipe> getRecipesByMenuId(Long mid) {
+        try {
+            System.out.println("Fetching recipes by mid: " + mid);
+            return recipeRepository.findByMid(mid);
+        } catch (Exception e) {
+            System.err.println("Error in getRecipesByMenuId: " + e.getMessage());
             e.printStackTrace();
             return null;
         }
