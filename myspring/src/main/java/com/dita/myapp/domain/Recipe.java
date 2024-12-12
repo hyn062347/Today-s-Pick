@@ -1,12 +1,14 @@
 package com.dita.myapp.domain;
 
-import java.sql.Timestamp;
-
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.sql.Timestamp;
+
 @Entity
 @Data
+@NoArgsConstructor // 기본 생성자 추가
+@AllArgsConstructor
 @Builder
 public class Recipe {
 
@@ -18,9 +20,9 @@ public class Recipe {
 
     private Long mid; // 메뉴 ID
 
-    private String rimg_src; // 파일 경로
+    private String rimg_src; // 이미지 파일 경로
 
-    private String rimg_name; // 파일 이름
+    private String rimg_name; // 이미지 파일 이름
 
     private String recipe_title; // 레시피 제목
 
@@ -28,5 +30,6 @@ public class Recipe {
 
     private String instructions; // 요리 방법
 
+    @Column(insertable = false, updatable = false)
     private Timestamp edited_at; // 수정 시간
 }
