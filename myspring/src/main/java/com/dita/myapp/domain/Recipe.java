@@ -14,11 +14,12 @@ import lombok.*;
 public class Recipe {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long rid; // Primary Key
 
     private String uid; // 작성자 UID
 
-    private Long mid;
+    private Long mid; // 메뉴 ID
 
     private String rimg_src; // 파일 경로
 
