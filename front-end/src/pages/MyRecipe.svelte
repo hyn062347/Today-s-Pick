@@ -1,5 +1,6 @@
 <script>
     import { onMount } from "svelte";
+    import { navigate } from "svelte-routing";
 
     let recipes = []; // 사용자 레시피 데이터
     let uid = ""; // 현재 로그인된 UID (임시로 하드코딩)
@@ -53,7 +54,7 @@
         <p>레시피를 불러오는 중이거나 등록된 레시피가 없습니다.</p>
     {:else}
         {#each recipes as recipe (recipe.rid)}
-            <div class="element">
+            <div class="element" on:click={() => navigate(`/recipedetail?rid=${recipe.rid}`)}>
                 {#if recipe.rimg_src}
                     <img src={recipe.rimg_src + recipe.rimg_name} alt={recipe.recipe_title} />
                 {:else}
