@@ -32,6 +32,10 @@
         }
     }
 
+    function navigateToUpload() {
+        window.location.href = '/upload';
+    }
+
     function editData(recipe) {
         console.log("Edit:", recipe);
         // Edit 페이지로 이동
@@ -50,7 +54,11 @@
     {:else}
         {#each recipes as recipe (recipe.rid)}
             <div class="element">
-                <img src={recipe.rimg_src + recipe.rimg_name} alt={recipe.recipe_title} />
+                {#if recipe.rimg_src}
+                    <img src={recipe.rimg_src + recipe.rimg_name} alt={recipe.recipe_title} />
+                {:else}
+                    <img src={'/img/noImg.png'}/>  
+                {/if}
                 <div class="stringBox">
                     <span class="title">{recipe.recipe_title}</span>
                     <span class="subtitle">{recipe.ingredients}</span>
@@ -61,6 +69,9 @@
                 </div>
             </div>
         {/each}
+        <div class="element">
+            <span class="upload" on:click={navigateToUpload}>등록하기</span>
+        </div>
     {/if}
 </main>
 
