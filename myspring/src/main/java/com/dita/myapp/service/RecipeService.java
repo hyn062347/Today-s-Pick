@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RecipeService {
@@ -26,6 +27,7 @@ public class RecipeService {
     }
 
     public Recipe getRecipeById(Long rid) {
-        return recipeRepository.findById(rid);
+        Optional<Recipe> optionalRecipe = recipeRepository.findRecipeById(rid);
+        return optionalRecipe.orElse(null); // 값이 없으면 null 반환
     }
 }
