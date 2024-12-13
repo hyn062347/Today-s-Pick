@@ -9,7 +9,11 @@
     <Slider/>
     <div class="ButtonSection">
         <button class="TodaysPick" on:click={() => navigate("/gacha")}>메뉴뽑기</button>
-        <button class="Favorite" on:click={() => navigate("/favorite")}>즐겨찾기</button>
+        {#if sessionStorage.getItem("idkey")}
+            <button class="Favorite" on:click={() => navigate("/favorite")}>즐겨찾기</button>
+        {:else}
+            <button class="Favorite" on:click={() => navigate("/signin")}>즐겨찾기</button>
+        {/if}
     </div>
 </main>
 
