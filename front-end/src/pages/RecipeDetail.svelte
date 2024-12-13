@@ -65,6 +65,12 @@
 <main class="setCenter">
     <div class="form-box">
         <form class="form">
+            {#if } <!-- 즐겨찾기 조건 -->
+            <img src="/img/favorie2.png" class="favorite"/>
+            {:else}
+            <img src="/img/favorite1.png" class="favorite"/>
+            {/if}
+            
             <div class="image-upload">
                 <label for="image-upload">
                     <div class="image-placeholder">
@@ -116,6 +122,11 @@
         padding: 32px 24px 24px;
         padding-bottom: 40px;
         gap: 16px;
+    }
+
+    .favorite {
+        width: 40px;
+        height: 40px;
     }
     
     .image-upload {
