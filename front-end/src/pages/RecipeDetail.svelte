@@ -65,7 +65,7 @@
 <main class="setCenter">
     <div class="form-box">
         <form class="form">
-            {#if } <!-- 즐겨찾기 조건 -->
+            {#if null} <!-- 즐겨찾기 조건 -->
             <img src="/img/favorie2.png" class="favorite"/>
             {:else}
             <img src="/img/favorite1.png" class="favorite"/>
@@ -127,6 +127,7 @@
     .favorite {
         width: 40px;
         height: 40px;
+        cursor: pointer;
     }
     
     .image-upload {
