@@ -41,7 +41,11 @@
     {:else}
         {#each recipes as recipe (recipe.rid)}
             <div class="element" on:click={() => navigate(`/recipedetail?rid=${recipe.rid}`)}>
-                <img src={recipe.rimg_src + recipe.rimg_name} alt={recipe.recipe_title} />
+                {#if recipe.rimg_src}
+                    <img src={recipe.rimg_src + recipe.rimg_name} alt={recipe.recipe_title} />
+                {:else}
+                    <img src={'/img/noImg.png'}/>  
+                {/if}
                 <div class="stringBox">
                     <span class="title">{recipe.recipe_title}</span>
                     <span class="subtitle">{recipe.ingredients}</span>
