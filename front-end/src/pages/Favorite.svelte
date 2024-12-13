@@ -1,6 +1,4 @@
 <script>
-    let image = "/img/SequoiaLight.png";
-    let exImg = "/img/slide3.png";
 
     let formData = {
         uid: "",
@@ -10,8 +8,8 @@
     formData.uid = sessionStorage.getItem("idkey");
 
     let favoriteFoods = [];
-    function gotoMenu() {
-        window.location.href = "/gacha";
+    function gotoRecipe(rid) {
+        window.location.href = `/recipedetail?rid=${rid}`;
     }
 
     async function deleteData(rid) {
@@ -77,7 +75,7 @@
         {#each favoriteFoods as favorite}
             <li class="element">
                 <img src="{favorite.rimg_src}{favorite.rimg_name}" alt="Image" />
-                <div class="stringBox">
+                <div class="stringBox" on:click={gotoRecipe(favorite.rid)}>
                     <span class="title">{favorite.recipe_title}</span>
                     <div>
                         <span class="subtitle">{favorite.ctg} -</span>
@@ -85,7 +83,6 @@
                     </div>
                 </div>
                 <div class="contentBox">
-                    <span class="goto" on:click={gotoMenu}>바로가기</span>
                     <span class="delete" on:click={deleteData(favorite.rid)}>삭제하기</span>
                 </div>
             </li>
@@ -96,7 +93,6 @@
 
 <style>
     .main {
-        padding: 0px 10%;
         display: flex;
         flex-direction: column;
         justify-content: center;
