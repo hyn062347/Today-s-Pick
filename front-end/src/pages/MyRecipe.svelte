@@ -54,13 +54,13 @@
         <p>레시피를 불러오는 중이거나 등록된 레시피가 없습니다.</p>
     {:else}
         {#each recipes as recipe (recipe.rid)}
-            <div class="element" on:click={() => navigate(`/recipedetail?rid=${recipe.rid}`)}>
+            <div class="element">
                 {#if recipe.rimg_src}
                     <img src={recipe.rimg_src + recipe.rimg_name} alt={recipe.recipe_title} />
                 {:else}
                     <img src={'/img/noImg.png'}/>  
                 {/if}
-                <div class="stringBox">
+                <div class="stringBox" on:click={() => navigate(`/recipedetail?rid=${recipe.rid}`)}>
                     <span class="title">{recipe.recipe_title}</span>
                     <span class="subtitle">{recipe.ingredients}</span>
                 </div>
