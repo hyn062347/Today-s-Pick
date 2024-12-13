@@ -78,8 +78,7 @@
                 <div class="stringBox" on:click={gotoRecipe(favorite.rid)}>
                     <span class="title">{favorite.recipe_title}</span>
                     <div>
-                        <span class="subtitle">{favorite.ctg} -</span>
-                        <span class="subtitle">{favorite.mname}</span>
+                        <span class="subtitle">{favorite.ctg}, {favorite.mname}</span>
                     </div>
                 </div>
                 <div class="contentBox">
@@ -144,6 +143,7 @@
     }
 
     .stringBox .subtitle {
+        color: #a9a9a9;
         font-size: 16px;
         font-family: "Inter";
     }

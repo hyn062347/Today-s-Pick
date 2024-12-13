@@ -62,7 +62,7 @@
                 {/if}
                 <div class="stringBox" on:click={() => navigate(`/recipedetail?rid=${recipe.rid}`)}>
                     <span class="title">{recipe.recipe_title}</span>
-                    <span class="subtitle">{recipe.ingredients}</span>
+                    <span class="subtitle">{recipe.menu_name}, {recipe.category}</span>
                 </div>
                 <div class="contentBox">
                     <span class="edit" on:click={() => editData(recipe)}>Edit</span>
@@ -136,6 +136,7 @@
     }
 
     .stringBox .subtitle {
+        color: #a9a9a9;
         font-size: 16px;
         font-family: 'Inter';
     }

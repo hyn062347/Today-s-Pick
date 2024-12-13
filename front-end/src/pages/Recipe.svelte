@@ -48,7 +48,7 @@
                 {/if}
                 <div class="stringBox">
                     <span class="title">{recipe.recipe_title}</span>
-                    <span class="subtitle">{recipe.ingredients}</span>
+                    <span class="subtitle">{recipe.menu_name}, {recipe.category}</span>
                     <span class="subtitle">작성자 - {recipe.uid}</span>
                 </div>
             </div>
