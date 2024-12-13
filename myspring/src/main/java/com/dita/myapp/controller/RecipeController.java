@@ -69,38 +69,23 @@ public class RecipeController {
     }
 
     @PostMapping("/details")
-    public ResponseEntity<Object> getRecipeDetails(@RequestBody Map<String, Long> payload) {
+    public ResponseEntity<?> getRecipeDetails(@RequestBody Map<String, Long> request) {
+        Long rid = request.get("rid");
+        if (rid == null) {
+            return ResponseEntity.badRequest().body(Map.of("error", "Missing rid parameter"));
+        }
+
         try {
-            Long rid = payload.get("rid");
-            if (rid == null) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                        .body(Map.of("error", "Invalid request", "message", "Missing recipe ID"));
-            }
-
-            Recipe recipe = recipeService.getRecipeById(rid);
-            if (recipe == null) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                        .body(Map.of("error", "Recipe not found", "message", "No recipe found for ID: " + rid));
-            }
-
-            RecipeDTO recipeDTO = RecipeDTO.builder()
-                    .rid(recipe.getRid())
-                    .uid(recipe.getUid())
-                    .mid(recipe.getMid())
-                    .rimg_src(recipe.getRimg_src())
-                    .rimg_name(recipe.getRimg_name())
-                    .recipe_title(recipe.getRecipe_title())
-                    .ingredients(recipe.getIngredients())
-                    .instructions(recipe.getInstructions())
-                    .menu_name("Example Menu Name") // Replace with menu name lookup logic
-                    .category("Example Category")  // Replace with category lookup logic
-                    .build();
-
-            return ResponseEntity.ok(recipeDTO);
+            Map<String, Object> recipeDetails = recipeService.getRecipeDetails(rid);
+            return ResponseEntity.ok(recipeDetails);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(Map.of("error", e.getMessage()));
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(Map.of("error", "Failed to fetch recipe details", "message", e.getMessage()));
+                    .body(Map.of("error", "An error occurred", "message", e.getMessage()));
         }
     }
+
 }
