@@ -76,4 +76,8 @@ public class RecipeService {
                 "category", menuDetails.get("category"));
     }
 
+    public Iterable<Recipe> getRecipesByUid(String uid) {
+        return recipeRepository.findByUid(uid);
+    }
+
 }

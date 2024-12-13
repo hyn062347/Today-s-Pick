@@ -88,4 +88,21 @@ public class RecipeController {
         }
     }
 
+    @PostMapping("/by-uid")
+    public ResponseEntity<Object> getRecipesByUid(@RequestBody Map<String, String> payload) {
+        try {
+            String uid = payload.get("uid");
+            if (uid == null || uid.isEmpty()) {
+                throw new IllegalArgumentException("UID is required");
+            }
+
+            Iterable<Recipe> recipes = recipeService.getRecipesByUid(uid);
+            return ResponseEntity.ok(recipes);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(Map.of("error", "Failed to fetch recipes by UID", "message", e.getMessage()));
+        }
+    }
+
 }

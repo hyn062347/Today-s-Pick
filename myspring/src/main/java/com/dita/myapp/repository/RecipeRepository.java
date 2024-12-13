@@ -18,4 +18,8 @@ public interface RecipeRepository extends CrudRepository<Recipe, Long> {
     // 이름 변경으로 충돌 해결
     @Query("SELECT r FROM Recipe r WHERE r.rid = :rid")
     Optional<Recipe> findRecipeById(@Param("rid") Long rid);
+
+    @Query("SELECT r FROM Recipe r WHERE r.uid = :uid")
+Iterable<Recipe> findByUid(@Param("uid") String uid);
+
 }
