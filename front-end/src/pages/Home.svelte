@@ -7,11 +7,6 @@
 
 <main>
     <Slider/>
-    {#if !sessionStorage.getItem("idkey")}
-            <h1>Did not Log in</h1>
-        {:else}
-            <h1>Welcom, {sessionStorage.getItem("idkey")}</h1>
-        {/if}
     <div class="ButtonSection">
         <button class="TodaysPick" on:click={() => navigate("/gacha")}>메뉴뽑기</button>
         <button class="Favorite" on:click={() => navigate("/favorite")}>즐겨찾기</button>
@@ -29,6 +24,7 @@
         justify-content: space-evenly;
         align-items: center;
         padding: 60px;
+        padding-top: 120px;
     }
 
     button{
