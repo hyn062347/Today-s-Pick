@@ -256,7 +256,23 @@
         cursor: pointer;
     }
 
+    .action-button.yellow {
+        background-color: #ffc107;
+    }
+
+    .action-button.orange {
+        background-color: #fd7e14;
+    }
+
     .action-button:hover {
         background-color: #0056b3;
+    }
+
+    .action-button.yellow:hover {
+        background-color: #e0a800;
+    }
+
+    .action-button.orange:hover {
+        background-color: #e8590c;
     }
 </style>
