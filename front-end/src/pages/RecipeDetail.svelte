@@ -60,21 +60,30 @@
             alert("레시피를 가져오는 중 오류가 발생했습니다.");
         }
     }
+
+    let isFavored = 1;
+
+    // 즐겨찾기 상태 변경
+    function toggleFavorite() {
+        isFavored = isFavored === 1 ? 0 : 1; // 값 변경
+    }
 </script>
 
 <main class="setCenter">
     <div class="form-box">
         <form class="form">
-            {#if null} <!-- 즐겨찾기 조건 -->
-            <img src="/img/favorie2.png" class="favorite"/>
-            {:else}
-            <img src="/img/favorite1.png" class="favorite"/>
-            {/if}
+            <div class="favorite-container">
+                {#if isFavored} <!-- 즐겨찾기 조건 -->
+                <img src="/img/favorite2.png" class="favorite" on:click={toggleFavorite}/>
+                {:else}
+                <img src="/img/favorite1.png" class="favorite" on:click={toggleFavorite}/>
+                {/if}
+            </div>
             
             <div class="image-upload">
                 <label for="image-upload">
                     <div class="image-placeholder">
-                        {#if recipeData.image}
+                        {#if recipeData.image!='/default/path/default_image.jpg'}
                             <img src={recipeData.image} alt={recipeData.title} />
                         {:else}
                             <span>이미지 없음</span>
@@ -122,6 +131,12 @@
         padding: 32px 24px 24px;
         padding-bottom: 40px;
         gap: 16px;
+    }
+
+    .favorite-container {
+        display: flex;
+        justify-content: flex-end;
+        width: 100%;
     }
 
     .favorite {
